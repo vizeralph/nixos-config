@@ -1,0 +1,28 @@
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
+  };
+
+  outputs =
+    { nixpkgs, nixpkgs-stable, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs-stable = import nixpkgs-stable { inherit system; };
+      mkHost =
+        modulePath:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ modulePath ];
+          specialArgs = { inherit pkgs-stable; };
+        };
+    in
+    {
+      nixosConfigurations = {
+        "vize-t7-shield" = mkHost ./hosts/portable/samsung/t7/shield;
+        "vize-strix-scar-15-g533qr" = mkHost ./hosts/asus/rog/strix/scar/15/g533qr;
+        # "vize-zephyrus-m16-gu604vi" = mkHost ./hosts/asus/rog/zephyrus/m16/gu604vi;
+        # "vize-yoga-7-14irl8" = mkHost ./hosts/lenovo/yoga/7/14irl8;
+      };
+    };
+}
