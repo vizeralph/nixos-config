@@ -23,6 +23,7 @@
     nvidia = {
       branch = "latest";
       open = true;
+      powerManagement.enable = true;
     };
   };
 }

@@ -2,11 +2,9 @@
 
 {
   boot = {
+    consoleLogLevel = 3;
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    kernelParams = [
-      "loglevel=3"
-      "quiet"
-    ];
+    kernelParams = [ "quiet" ];
     loader = {
       grub = {
         device = "nodev";

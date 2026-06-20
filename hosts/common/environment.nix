@@ -15,6 +15,7 @@
       kitty
       mako
       neovim
+      nixd
       nixfmt
       rofi
       steam

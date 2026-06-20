@@ -8,8 +8,8 @@
         "intel-ocl"
         "nvidia-settings"
         "nvidia-x11"
-        "steam"
         "steam-unwrapped"
+        "steam"
         "vscode"
       ];
     hostPlatform = lib.mkDefault "x86_64-linux";
