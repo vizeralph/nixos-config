@@ -9,6 +9,7 @@
       grub = {
         device = "nodev";
         efiSupport = true;
+        splashImage = null;
         theme = pkgs.fetchFromGitHub {
           hash = "sha256-ATm0b9e3Qcv42E5CQYB7Umc8NpWw90QdjJmArOKbmaY=";
           owner = "Jacksaur";

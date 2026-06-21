@@ -13,6 +13,10 @@
         macAddress = "random";
       };
     };
+    timeServers = [
+      "ph.pool.ntp.org"
+      "asia.pool.ntp.org"
+    ];
     useDHCP = false;
   };
 }

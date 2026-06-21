@@ -44,19 +44,6 @@
       jack.enable = true;
       pulse.enable = true;
     };
-    timesyncd = {
-      fallbackServers = [
-        "0.asia.pool.ntp.org"
-        "1.asia.pool.ntp.org"
-        "2.asia.pool.ntp.org"
-        "3.asia.pool.ntp.org"
-      ];
-      servers = [
-        "0.ph.pool.ntp.org"
-        "1.ph.pool.ntp.org"
-        "2.ph.pool.ntp.org"
-        "3.ph.pool.ntp.org"
-      ];
-    };
+    power-profiles-daemon.enable = true;
   };
 }

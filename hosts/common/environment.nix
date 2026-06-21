@@ -3,15 +3,11 @@
 {
   environment = {
     systemPackages = with pkgs; [
+      bibata-cursors
       bitwarden-desktop
-      (btop.override {
-        config = {
-          cudaSupport = true;
-          rocmSupport = true;
-        };
-      })
       firefox
       git
+      keepassxc
       kitty
       mako
       neovim
@@ -27,6 +23,8 @@
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
+      XCURSOR_SIZE = "24";
+      XCURSOR_THEME = "Bibata-Modern-Ice";
     };
   };
 }

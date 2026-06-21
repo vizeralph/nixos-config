@@ -1,9 +1,9 @@
 {
   specialisation = {
-    "2021 ROG Strix SCAR 15".configuration = {
+    g533q.configuration = {
       boot = {
-        loader.grub.configurationName = "2021 ROG Strix SCAR 15";
         kernelParams = [ "processor.max_cstate=1" ];
+        loader.grub.configurationName = "2021 ROG Strix SCAR 15";
       };
     };
   };

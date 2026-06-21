@@ -19,8 +19,11 @@
     in
     {
       nixosConfigurations = {
-        "vize-t7-shield" = mkHost ./hosts/portable/samsung/t7/shield;
-        "vize-strix-scar-15-g533qr" = mkHost ./hosts/asus/rog/strix/scar/15/g533qr;
+        # ASUS
+        vize-strix-scar-15-g533qr = mkHost ./hosts/asus/rog/strix/scar/15/g533qr;
+
+        # PORTABLE
+        vize-t7-shield = mkHost ./hosts/portable/samsung/t7/shield;
       };
     };
 }

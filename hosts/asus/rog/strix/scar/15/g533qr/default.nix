@@ -2,7 +2,7 @@
   imports = [
     ../../../../../../common
     ./boot.nix
-    ./default.nix
+    ./environment.nix
     ./hardware.nix
     ./networking.nix
     ./nixpkgs.nix
