@@ -1,11 +1,12 @@
 {
   boot = {
+    extraModprobeConfig = "options nvidia NVreg_EnableS0ixPowerManagement=1";
     initrd.availableKernelModules = [
       "nvme"
-      "xhci_pci"
-      "usbhid"
-      "uas"
       "sd_mod"
+      "uas"
+      "usbhid"
+      "xhci_pci"
     ];
     kernelModules = [ "kvm-amd" ];
     kernelParams = [ "processor.max_cstate=1" ];

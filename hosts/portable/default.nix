@@ -1,6 +1,9 @@
+{ self, ... }:
+
 {
   imports = [
-    ../../../../common
+    (self + "/hosts/common")
+
     ./boot.nix
     ./environment.nix
     ./filesystems.nix
