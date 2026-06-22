@@ -1,6 +1,5 @@
 {
   imports = [
-    ./home-manager
     ./services
 
     ./boot.nix

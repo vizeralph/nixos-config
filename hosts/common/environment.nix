@@ -5,6 +5,7 @@
     systemPackages = with pkgs; [
       bibata-cursors
       bitwarden-desktop
+      firefox
       git
       keepassxc
       kitty
