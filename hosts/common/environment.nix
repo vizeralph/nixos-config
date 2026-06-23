@@ -3,22 +3,27 @@
 {
   environment = {
     systemPackages = with pkgs; [
+      lua-language-server
+      nixd
+      nixfmt
+
       bibata-cursors
       bitwarden-desktop
       firefox
+      gamescope
       git
       keepassxc
       kitty
       mako
       neovim
-      nixd
-      nixfmt
       rofi
+      starship
       steam
-      vscode
       wiremix
       wl-clipboard
       yazi
+      zed-editor
+      zsh
     ];
     variables = {
       EDITOR = "nvim";

@@ -13,6 +13,7 @@
       hide_key_hints = true;
       hide_version_string = true;
       initial_info_text = "Welcome, VIZE!";
+      text_in_center = true;
 
       # allow_empty_password = true;
       # animation = "none";
