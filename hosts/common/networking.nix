@@ -1,6 +1,5 @@
 {
   networking = {
-    dhcpcd.enable = false;
     nameservers = [
       "127.0.0.1"
       "::1"
@@ -17,6 +16,5 @@
       "ph.pool.ntp.org"
       "asia.pool.ntp.org"
     ];
-    useDHCP = false;
   };
 }

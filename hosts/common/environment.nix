@@ -4,18 +4,24 @@
   environment = {
     systemPackages = with pkgs; [
       lua-language-server
+      nil
       nixd
       nixfmt
+      package-version-server
 
       bibata-cursors
       bitwarden-desktop
+      darkman
+      eza
       firefox
       gamescope
+      gammastep
       git
       keepassxc
       kitty
       mako
       neovim
+      quickshell
       rofi
       starship
       steam
@@ -23,7 +29,6 @@
       wl-clipboard
       yazi
       zed-editor
-      zsh
     ];
     variables = {
       EDITOR = "nvim";
