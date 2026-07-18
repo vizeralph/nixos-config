@@ -6,13 +6,8 @@
 
   services = {
     pipewire = {
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      enable = true;
+      alsa.support32Bit = true;
       jack.enable = true;
-      pulse.enable = true;
     };
     power-profiles-daemon.enable = true;
   };

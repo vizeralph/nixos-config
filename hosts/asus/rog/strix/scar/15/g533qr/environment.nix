@@ -2,12 +2,11 @@
 
 {
   environment = {
+    # persistence."/persist" = { };
     systemPackages = with pkgs; [
       (btop.override {
-        config = {
-          cudaSupport = true;
-          rocmSupport = true;
-        };
+        cudaSupport = true;
+        rocmSupport = true;
       })
     ];
   };

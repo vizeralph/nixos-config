@@ -1,8 +1,10 @@
-{ self, ... }:
+{ self, inputs, ... }:
 
 {
   imports = [
     (self + "/hosts/common")
+
+    inputs.impermanence.nixosModules.impermanence
 
     ./boot.nix
     ./environment.nix

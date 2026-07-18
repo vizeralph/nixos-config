@@ -2,33 +2,35 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
+
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      nixpkgs-stable,
       ...
-    }:
+    }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs-stable = import nixpkgs-stable { inherit system; };
       mkHost =
-        hostModule:
+        system: hostModule:
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [ hostModule ];
-          specialArgs = { inherit self pkgs-stable; };
+          specialArgs = { inherit self inputs; };
         };
     in
     {
       nixosConfigurations = {
         # ASUS
-        vize-strix-scar-15-g533qr = mkHost ./hosts/asus/rog/strix/scar/15/g533qr;
+        vize-strix-scar-15-g533qr = mkHost "x86_64-linux" ./hosts/asus/rog/strix/scar/15/g533qr;
 
         # PORTABLE
-        vize-portable = mkHost ./hosts/portable;
+        vize-portable = mkHost "x86_64-linux" ./hosts/portable;
       };
     };
 }

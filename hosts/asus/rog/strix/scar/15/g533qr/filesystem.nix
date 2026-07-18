@@ -3,32 +3,56 @@
     "/" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=root" ];
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=root"
+      ];
     };
     "/home" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=home" ];
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=home"
+      ];
     };
     "/nix" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=nix"
+      ];
     };
     "/persistent" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=persistent" ];
+      neededForBoot = true;
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=persistent"
+      ];
     };
     "/swap" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=swap" ];
+      options = [
+        "noatime"
+        "subvol=swap"
+      ];
     };
     "/var/log" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=log" ];
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=log"
+      ];
     };
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";

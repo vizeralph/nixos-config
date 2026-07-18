@@ -21,6 +21,7 @@
       kitty
       mako
       neovim
+      nix-diff
       quickshell
       rofi
       starship

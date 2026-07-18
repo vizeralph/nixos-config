@@ -1,16 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   hardware = {
     amdgpu.opencl.enable = true;
     cpu = {
-      amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-      intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+      amd.updateMicrocode = true;
+      intel.updateMicrocode = true;
     };
     enableAllHardware = true;
     graphics.extraPackages = with pkgs; [
@@ -22,6 +17,7 @@
     ];
     nvidia = {
       branch = "latest";
+      dynamicBoost.enable = true;
       open = true;
       powerManagement.enable = true;
     };

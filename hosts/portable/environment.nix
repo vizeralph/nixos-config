@@ -1,14 +1,10 @@
 { pkgs, ... }:
 
 {
-  environment = {
-    systemPackages = with pkgs; [
-      (btop.override {
-        config = {
-          cudaSupport = true;
-          rocmSupport = true;
-        };
-      })
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    (btop.override {
+      cudaSupport = true;
+      rocmSupport = true;
+    })
+  ];
 }

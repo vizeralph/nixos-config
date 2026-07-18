@@ -1,15 +1,6 @@
-{ lib, ... }:
-
 {
-  nixpkgs = {
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "nvidia-settings"
-        "nvidia-x11"
-        "steam"
-        "steam-unwrapped"
-      ];
-    hostPlatform = lib.mkDefault "x86_64-linux";
-  };
+  nixpkgs.config.allowUnfreePackages = [
+    "nvidia-settings"
+    "nvidia-x11"
+  ];
 }
