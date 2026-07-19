@@ -4,8 +4,11 @@
   nixpkgs = {
     config = {
       allowUnfreePackages = [
+        "corefonts"
         "steam"
         "steam-unwrapped"
+        "vista-fonts"
+        "vscode"
       ];
       permittedInsecurePackages = [ "electron-39.8.10" ];
     };

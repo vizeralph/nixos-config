@@ -12,7 +12,6 @@
     ./nixpkgs.nix
     ./services.nix
     ./specialisation.nix
-    ./swap-devices.nix
     ./zram-swap.nix
   ];
 }

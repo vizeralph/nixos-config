@@ -4,11 +4,13 @@
   environment = {
     systemPackages = with pkgs; [
       lua-language-server
-      nil
+      nix-diff
       nixd
       nixfmt
-      package-version-server
+      qt6.qtdeclarative
+      stylua
 
+      bat
       bibata-cursors
       bitwarden-desktop
       darkman
@@ -19,17 +21,13 @@
       git
       keepassxc
       kitty
-      mako
       neovim
-      nix-diff
       quickshell
-      rofi
       starship
       steam
-      wiremix
+      vscode
       wl-clipboard
       yazi
-      zed-editor
     ];
     variables = {
       EDITOR = "nvim";

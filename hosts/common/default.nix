@@ -4,6 +4,7 @@
 
     ./boot.nix
     ./environment.nix
+    ./fonts.nix
     ./hardware.nix
     ./i18n.nix
     ./networking.nix
