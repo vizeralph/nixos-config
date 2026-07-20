@@ -1,6 +1,6 @@
 # nixos-config
 
-> **Ex dissatisfactione, evolutio.**
+> **Ex dissatisfactione, evolutio.**  
 > _(Out of dissatisfaction, evolution.)_
 
 My personal, flake-based NixOS configurations. Born out of systemic dissatisfaction with imperative operating systems, this repository represents a continuous evolution toward a predictable, reproducible, and highly optimized desktop environments.
