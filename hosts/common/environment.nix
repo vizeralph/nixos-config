@@ -11,7 +11,6 @@
       stylua
 
       bat
-      bibata-cursors
       bitwarden-desktop
       darkman
       eza
@@ -19,9 +18,14 @@
       gamescope
       gammastep
       git
+      hyprshot
       keepassxc
       kitty
+      libreoffice-fresh
       neovim
+      obs-studio
+      phinger-cursors
+      podman
       quickshell
       starship
       steam
@@ -33,7 +37,7 @@
       EDITOR = "nvim";
       VISUAL = "nvim";
       XCURSOR_SIZE = "24";
-      XCURSOR_THEME = "Bibata-Modern-Ice";
+      XCURSOR_THEME = "phinger-cursors-light";
     };
   };
 }

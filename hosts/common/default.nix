@@ -7,6 +7,7 @@
     ./fonts.nix
     ./hardware.nix
     ./i18n.nix
+    ./location.nix
     ./networking.nix
     ./nix.nix
     ./nixpkgs.nix

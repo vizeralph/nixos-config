@@ -1,1 +1,1 @@
-{ time.timeZone = "Asia/Manila"; }
+{ lib, ... }: { time.timeZone = lib.mkDefault "Asia/Manila"; }

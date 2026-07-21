@@ -6,8 +6,8 @@
     settings = {
       animation = "colormix";
       bigclock = "en";
-      brightness_down_cmd = "${pkgs.brightnessctl}/bin/brightnessctl --min-value --quiet set 5%-";
-      brightness_up_cmd = "${pkgs.brightnessctl}/bin/brightnessctl --min-value --quiet set +5%";
+      brightness_down_cmd = "${pkgs.brightnessctl}/bin/brightnessctl --min-value --quiet set 1%-";
+      brightness_up_cmd = "${pkgs.brightnessctl}/bin/brightnessctl --min-value --quiet set +1%";
       clear_password = true;
       default_input = "password";
       hide_key_hints = true;
@@ -15,9 +15,6 @@
       initial_info_text = "Welcome, VIZE!";
       text_in_center = true;
 
-      ##########
-      # ly 1.4 #
-      ##########
       # allow_empty_password = true;
       # animation = "none";
       # animation_frame_delay = 5;

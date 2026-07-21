@@ -5,6 +5,7 @@
   ];
 
   services = {
+    automatic-timezoned.enable = true;
     pipewire = {
       alsa.support32Bit = true;
       jack.enable = true;
