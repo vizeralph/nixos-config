@@ -10,6 +10,7 @@
       qt6.qtdeclarative
       stylua
 
+      aichat
       bat
       bitwarden-desktop
       darkman
@@ -24,6 +25,7 @@
       libreoffice-fresh
       neovim
       obs-studio
+      opencode
       phinger-cursors
       podman
       quickshell
@@ -36,8 +38,6 @@
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      XCURSOR_SIZE = "24";
-      XCURSOR_THEME = "phinger-cursors-light";
     };
   };
 }

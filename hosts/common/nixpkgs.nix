@@ -15,8 +15,9 @@
     overlays = [
       (final: prev: {
         stable = import inputs.nixpkgs-stable {
-          inherit (prev) system;
-          inherit (prev) config;
+          system = prev.stdenv.hostPlatform.system;
+          config.allowUnfreePackages = prev.config.allowUnfreePackages or [ ];
+          config.permittedInsecurePackages = prev.config.permittedInsecurePackages or [ ];
         };
       })
     ];

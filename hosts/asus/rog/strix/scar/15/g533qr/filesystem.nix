@@ -35,7 +35,7 @@
         "compress=zstd"
         "noatime"
         "subvol=persistent"
-      ];
+      ]; # TODO: Rename to persist
     };
     "/swap" = {
       device = "/dev/disk/by-label/nixos";
@@ -52,7 +52,7 @@
         "compress=zstd"
         "noatime"
         "subvol=log"
-      ];
+      ]; # TODO: Remove
     };
     "/boot" = {
       device = "/dev/disk/by-label/BOOT";
