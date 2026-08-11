@@ -1,1 +1,0 @@
-{ imports = [ ./searx.nix ]; }

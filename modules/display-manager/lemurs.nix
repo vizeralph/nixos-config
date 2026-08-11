@@ -1,0 +1,133 @@
+{
+  services.displayManager.lemurs = {
+    enable = true;
+    settings = {
+      focus_behaviour = "password";
+      background.show_background = true;
+
+      # tty = 2;
+      # main_log_path = "/var/log/lemurs.log";
+      # client_log_path = "/var/log/lemurs.client.log";
+      # cache_path = "/var/cache/lemurs";
+      # do_log = true;
+      # pam_service = "lemurs";
+      # system_shell = "/bin/sh";
+      # initial_path = "/usr/local/sbin:/usr/local/bin:/usr/bin";
+      # shell_login_flag = "short";
+      # focus_behaviour = "default";
+
+      # background = {
+      #   show_background = false;
+      #   style = {
+      #     color = "black";
+      #     show_border = true;
+      #     border_color = "white";
+      #   };
+      # };
+
+      # power_controls = {
+      #   hint_margin = 2;
+      #   entries = [ ];
+      #   base_entries = [
+      #     {
+      #       hint = "Shutdown";
+      #       hint_color = "dark gray";
+      #       hint_modifiers = "";
+      #       key = "F1";
+      #       cmd = "systemctl poweroff -l";
+      #     }
+      #     {
+      #       hint = "Reboot";
+      #       hint_color = "dark gray";
+      #       hint_modifiers = "";
+      #       key = "F2";
+      #       cmd = "systemctl reboot -l";
+      #     }
+      #   ];
+      # };
+
+      # environment_switcher = {
+      #   switcher_visibility = "visible";
+      #   toggle_hint = "Switcher %key%";
+      #   toggle_hint_color = "dark gray";
+      #   toggle_hint_modifiers = "";
+      #   include_tty_shell = false;
+      #   remember = true;
+      #   show_movers = true;
+      #   mover_color = "dark gray";
+      #   mover_modifiers = "";
+      #   mover_color_focused = "orange";
+      #   mover_modifiers_focused = "bold";
+      #   left_mover = "<";
+      #   right_mover = ">";
+      #   mover_margin = 1;
+      #   show_neighbours = true;
+      #   neighbour_color = "dark gray";
+      #   neighbour_modifiers = "";
+      #   neighbour_color_focused = "gray";
+      #   neighbour_modifiers_focused = "";
+      #   neighbour_margin = 1;
+      #   selected_color = "gray";
+      #   selected_modifiers = "underlined";
+      #   selected_color_focused = "white";
+      #   selected_modifiers_focused = "bold";
+      #   max_display_length = 8;
+      #   no_envs_text = "No environments...";
+      #   no_envs_color = "white";
+      #   no_envs_modifiers = "";
+      #   no_envs_color_focused = "red";
+      #   no_envs_modifiers_focused = "";
+      # };
+
+      # username_field = {
+      #   remember = true;
+      #   style = {
+      #     show_title = true;
+      #     title = "Login";
+      #     title_color = "white";
+      #     content_color = "white";
+      #     title_color_focused = "orange";
+      #     content_color_focused = "orange";
+      #     show_border = true;
+      #     border_color = "white";
+      #     border_color_focused = "orange";
+      #     use_max_width = true;
+      #     max_width = 48;
+      #   };
+      # };
+
+      # password_field = {
+      #   content_replacement_character = "*";
+      #   style = {
+      #     show_title = true;
+      #     title = "Password";
+      #     title_color = "white";
+      #     content_color = "white";
+      #     title_color_focused = "orange";
+      #     content_color_focused = "orange";
+      #     show_border = true;
+      #     border_color = "white";
+      #     border_color_focused = "orange";
+      #     use_max_width = true;
+      #     max_width = 48;
+      #   };
+      # };
+
+      # x11 = {
+      #   xserver_log_path = "/var/log/lemurs.xorg.log";
+      #   x11_display = ":1";
+      #   xserver_timeout_secs = 60;
+      #   xserver_path = "/usr/bin/X";
+      #   xauth_path = "/usr/bin/xauth";
+      #   scripts_path = "/etc/lemurs/wms";
+      #   xsetup_path = "/etc/lemurs/xsetup.sh";
+      #   xsessions_path = "/usr/share/xsessions";
+      # };
+
+      # wayland = {
+      #   scripts_path = "/etc/lemurs/wayland";
+      #   wayland_sessions_path = "/usr/share/wayland-sessions";
+      # };
+    };
+  };
+}
