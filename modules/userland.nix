@@ -49,16 +49,13 @@
     pkgs.nerd-fonts.symbols-only
     pkgs.vista-fonts
   ];
-  nixpkgs.config = {
-    allowUnfreePackages = [
-      "corefonts"
-      "davinci-resolve"
-      "steam"
-      "steam-unwrapped"
-      "vista-fonts"
-    ];
-    permittedInsecurePackages = [ "electron-39.8.10" ];
-  };
+  nixpkgs.config.allowUnfreePackages = [
+    "corefonts"
+    "davinci-resolve"
+    "steam"
+    "steam-unwrapped"
+    "vista-fonts"
+  ];
   programs = {
     hyprland.enable = true;
     localsend.enable = true;
