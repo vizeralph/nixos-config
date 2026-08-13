@@ -44,7 +44,9 @@
   };
   fonts.packages = [
     pkgs.corefonts
-    pkgs.nerd-fonts.noto
+    pkgs.inter
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.symbols-only
     pkgs.vista-fonts
   ];
   nixpkgs.config = {
