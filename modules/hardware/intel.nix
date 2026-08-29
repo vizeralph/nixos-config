@@ -21,12 +21,9 @@ in
       hardware.graphics.extraPackages = [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver
-        # pkgs.intel-media-sdk # NOTE: Deprecated.
-        # pkgs.intel-ocl # NOTE: Legacy, not recommended for Arc/Xe.
         pkgs.libvdpau-va-gl
         pkgs.vpl-gpu-rt
       ];
-      # nixpkgs.config.allowUnfreePackages = [ "intel-ocl" ];
       services.xserver.videoDrivers = [ "modesetting" ];
     })
   ];

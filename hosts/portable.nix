@@ -24,8 +24,9 @@
   };
   boot.loader.grub.efiInstallAsRemovable = true;
   hardware = {
+    enableAllFirmware = true;
     enableAllHardware = true;
-    nvidia.open = true;
+    nvidia.open = false;
   };
   networking = {
     hostName = "vize-portable";

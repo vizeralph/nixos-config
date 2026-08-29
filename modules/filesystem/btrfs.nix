@@ -98,6 +98,7 @@ in
       '';
       environment.persistence."/persistent" = {
         directories = [
+          "/etc/NetworkManager/system-connections"
           "/var/lib/bluetooth"
           "/var/lib/NetworkManager"
           "/var/log"

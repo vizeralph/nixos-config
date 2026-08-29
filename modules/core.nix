@@ -20,13 +20,12 @@
     (final: prev: {
       stable = import inputs.nixpkgs-stable {
         system = prev.stdenv.hostPlatform.system;
-        config.allowUnfreePackages = prev.config.allowUnfreePackages;
+        config.allowUnfreePackages = prev.config.allowUnfreePackages or [ ];
         config.permittedInsecurePackages = prev.config.permittedInsecurePackages or [ ];
       };
     })
   ];
-  security.sudo.extraConfig = ''Defaults env_keep += "EDITOR VISUAL"'';
-  services.xserver.enable = true;
+  security.sudo.extraConfig = ''Defaults env_keep+="EDITOR VISUAL"'';
   users.users.vize = {
     extraGroups = [ "wheel" ];
     initialPassword = "12345";

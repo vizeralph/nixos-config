@@ -10,7 +10,7 @@
   modules = {
     bootloader.type = "grub";
     filesystem.btrfs.swap = {
-      size = 32 * 1024;
+      size = 16 * 1024;
       type = "file";
     };
     hardware.intel = {

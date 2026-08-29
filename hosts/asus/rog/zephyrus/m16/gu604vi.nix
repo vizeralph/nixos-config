@@ -5,6 +5,7 @@
     (self + "/modules/networking")
     (self + "/modules/display-manager/ly.nix")
     (self + "/modules/filesystem/btrfs.nix")
+    (self + "/modules/filesystem/samba.nix")
     (self + "/modules/hardware/intel.nix")
     (self + "/modules/hardware/nvidia.nix")
   ];
@@ -29,14 +30,14 @@
       prime = {
         intelBusId = "PCI:0@0:2:0";
         nvidiaBusId = "PCI:1@0:0:0";
-        offload.enable = true;
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
       };
     };
   };
-  networking = {
-    hostName = "vize-zephyrus-m16-gu604vi";
-    networkmanager.wifi.powersave = true;
-  };
+  networking.hostName = "vize-zephyrus-m16-gu604vi";
   services.asusd.enable = true;
   system.stateVersion = "26.05";
 }

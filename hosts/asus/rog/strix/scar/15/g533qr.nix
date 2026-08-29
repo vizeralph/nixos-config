@@ -5,6 +5,7 @@
     (self + "/modules/networking")
     (self + "/modules/display-manager/ly.nix")
     (self + "/modules/filesystem/btrfs.nix")
+    (self + "/modules/filesystem/samba.nix")
     (self + "/modules/hardware/amd.nix")
     (self + "/modules/hardware/nvidia.nix")
   ];
@@ -32,14 +33,14 @@
       prime = {
         amdgpuBusId = "PCI:6@0:0:0";
         nvidiaBusId = "PCI:1@0:0:0";
-        offload.enable = true;
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
       };
     };
   };
-  networking = {
-    hostName = "vize-strix-scar-15-g533qr";
-    networkmanager.wifi.powersave = true;
-  };
+  networking.hostName = "vize-strix-scar-15-g533qr";
   services.asusd.enable = true;
   system.stateVersion = "26.05";
 }
