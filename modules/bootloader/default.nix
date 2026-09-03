@@ -5,13 +5,11 @@ in
 {
   imports = [
     ./grub.nix
-    ./limine.nix
     ./refind.nix
   ];
   options.modules.bootloader.type = lib.mkOption {
     type = lib.types.enum [
       "grub"
-      "limine"
       "refind"
       "systemd-boot"
     ];

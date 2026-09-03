@@ -11,9 +11,9 @@ in
     };
     type = lib.mkOption {
       type = lib.types.enum [
-        "none"
         "file"
         "partition"
+        "none"
       ];
       default = "none";
       description = "Swap storage type.";
@@ -23,13 +23,13 @@ in
     {
       fileSystems = {
         "/" = {
-          device = "/dev/disk/by-label/nixos";
           fsType = "ext4";
+          label = "nixos";
           options = [ "noatime" ];
         };
         "/boot" = {
-          device = "/dev/disk/by-label/BOOT";
           fsType = "vfat";
+          label = "BOOT";
           options = [
             "dmask=0077"
             "fmask=0077"
@@ -41,17 +41,18 @@ in
       boot.zswap.enable = true;
       swapDevices = [
         (
-          if cfg.swap.type == "file" then
-            {
-              device = "/var/lib/swapfile";
-              discardPolicy = "both";
-              size = cfg.swap.size;
-            }
-          else
-            {
-              discardPolicy = "both";
-              label = "swap";
-            }
+          {
+            discardPolicy = "both";
+          }
+          // (
+            if cfg.swap.type == "file" then
+              {
+                device = "/var/lib/swapfile";
+                size = cfg.swap.size;
+              }
+            else
+              { label = "swap"; }
+          )
         )
       ];
     })

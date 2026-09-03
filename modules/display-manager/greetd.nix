@@ -1,0 +1,1 @@
+{ services.greetd.enable = true; }

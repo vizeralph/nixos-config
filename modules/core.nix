@@ -4,12 +4,12 @@
   nix = {
     gc = {
       automatic = true;
-      dates = "Mon *-*-1..7,15..21 00:00:00";
+      dates = "Mon 00:00:00";
       options = "--delete-older-than 7d";
     };
     optimise = {
       automatic = true;
-      dates = "Fri *-*-1..7,15..21 00:00:00";
+      dates = "Fri 00:00:00";
     };
     settings.experimental-features = [
       "flakes"
@@ -17,7 +17,7 @@
     ];
   };
   nixpkgs.overlays = [
-    (final: prev: {
+    (_: prev: {
       stable = import inputs.nixpkgs-stable {
         system = prev.stdenv.hostPlatform.system;
         config.allowUnfreePackages = prev.config.allowUnfreePackages or [ ];

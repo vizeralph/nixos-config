@@ -1,13 +1,13 @@
-{ self, ... }: {
+{ inputs, ... }: {
   imports = [
-    (self + "/modules")
-    (self + "/modules/bootloader")
-    (self + "/modules/networking")
-    (self + "/modules/display-manager/ly.nix")
-    (self + "/modules/filesystem/btrfs.nix")
-    (self + "/modules/filesystem/samba.nix")
-    (self + "/modules/hardware/intel.nix")
-    (self + "/modules/hardware/nvidia.nix")
+    (inputs.self + "/modules")
+    (inputs.self + "/modules/bootloader")
+    (inputs.self + "/modules/display-manager/ly.nix")
+    (inputs.self + "/modules/filesystem/btrfs.nix")
+    (inputs.self + "/modules/filesystem/cifs.nix")
+    (inputs.self + "/modules/hardware/intel.nix")
+    (inputs.self + "/modules/hardware/nvidia.nix")
+    (inputs.self + "/modules/networking")
   ];
   modules = {
     bootloader.type = "grub";
@@ -19,6 +19,7 @@
       cpu.enable = true;
       gpu.enable = true;
     };
+    networking.domainNameSystem.type = "dnsproxy";
   };
   boot.loader.efi.canTouchEfiVariables = true;
   hardware = {

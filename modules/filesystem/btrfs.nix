@@ -19,9 +19,9 @@ in
       };
       type = lib.mkOption {
         type = lib.types.enum [
-          "none"
           "file"
           "partition"
+          "none"
         ];
         default = "none";
         description = "Swap storage type.";
@@ -32,17 +32,26 @@ in
     {
       fileSystems = {
         "/" = {
-          device = "/dev/disk/by-label/nixos";
           fsType = "btrfs";
+          label = "nixos";
           options = [
             "compress=zstd"
             "noatime"
             "subvol=root"
           ];
         };
-        "/home" = {
-          device = "/dev/disk/by-label/nixos";
+        "/games" = {
           fsType = "btrfs";
+          label = "nixos";
+          options = [
+            "compress=zstd"
+            "noatime"
+            "subvol=games"
+          ];
+        };
+        "/home" = {
+          fsType = "btrfs";
+          label = "nixos";
           options = [
             "compress=zstd"
             "noatime"
@@ -50,17 +59,26 @@ in
           ];
         };
         "/nix" = {
-          device = "/dev/disk/by-label/nixos";
           fsType = "btrfs";
+          label = "nixos";
           options = [
             "compress=zstd"
             "noatime"
             "subvol=nix"
           ];
         };
+        "/var/log" = {
+          fsType = "btrfs";
+          label = "nixos";
+          options = [
+            "compress=zstd"
+            "noatime"
+            "subvol=log"
+          ];
+        };
         "/boot" = {
-          device = "/dev/disk/by-label/BOOT";
           fsType = "vfat";
+          label = "BOOT";
           options = [
             "dmask=0077"
             "fmask=0077"
@@ -70,27 +88,25 @@ in
     }
     (lib.mkIf cfg.impermanence.enable {
       boot.initrd.postResumeCommands = lib.mkAfter ''
-        mkdir -p /btrfs_tmp
-        mount -o subvolid=5 /dev/disk/by-label/nixos /btrfs_tmp
+        mkdir /btrfs_tmp
+        mount /dev/disk/by-label/nixos /btrfs_tmp
 
         if [[ -e /btrfs_tmp/root ]]; then
-          mkdir -p /btrfs_tmp/old_roots
-          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
-          mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+            mkdir -p /btrfs_tmp/old_roots
+            timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
+            mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
         fi
 
         delete_subvolume_recursively() {
-          IFS=$'\n'
-
-          for subvolume in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-            delete_subvolume_recursively "/btrfs_tmp/$subvolume"
-          done
-
-          btrfs subvolume delete "$1"
+            IFS=$'\n'
+            for subvolume in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+                delete_subvolume_recursively "/btrfs_tmp/$subvolume"
+            done
+            btrfs subvolume delete "$1"
         }
 
-        for old_root in $(find /btrfs_tmp/old_roots/ -mindepth 1 -maxdepth 1 -mtime +30); do
-          delete_subvolume_recursively "$old_root"
+        for old_root in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
+            delete_subvolume_recursively "$old_root"
         done
 
         btrfs subvolume create /btrfs_tmp/root
@@ -99,16 +115,15 @@ in
       environment.persistence."/persistent" = {
         directories = [
           "/etc/NetworkManager/system-connections"
-          "/var/lib/bluetooth"
           "/var/lib/NetworkManager"
-          "/var/log"
+          "/var/lib/bluetooth"
         ];
         files = [ "/etc/machine-id" ];
         hideMounts = true;
       };
       fileSystems."/persistent" = {
-        device = "/dev/disk/by-label/nixos";
         fsType = "btrfs";
+        label = "nixos";
         neededForBoot = true;
         options = [
           "compress=zstd"
@@ -117,21 +132,10 @@ in
         ];
       };
     })
-    (lib.mkIf (!cfg.impermanence.enable) {
-      fileSystems."/var/log" = {
-        device = "/dev/disk/by-label/nixos";
-        fsType = "btrfs";
-        options = [
-          "compress=zstd"
-          "noatime"
-          "subvol=log"
-        ];
-      };
-    })
     (lib.mkIf (cfg.swap.type == "file") {
       fileSystems."/swap" = {
-        device = "/dev/disk/by-label/nixos";
         fsType = "btrfs";
+        label = "nixos";
         options = [
           "noatime"
           "subvol=swap"
@@ -142,17 +146,18 @@ in
       boot.zswap.enable = true;
       swapDevices = [
         (
-          if cfg.swap.type == "file" then
-            {
-              device = "/swap/swapfile";
-              discardPolicy = "both";
-              size = cfg.swap.size;
-            }
-          else
-            {
-              discardPolicy = "both";
-              label = "swap";
-            }
+          {
+            discardPolicy = "both";
+          }
+          // (
+            if cfg.swap.type == "partition" then
+              { label = "swap"; }
+            else
+              {
+                device = "/swap/swapfile";
+                size = cfg.swap.size;
+              }
+          )
         )
       ];
     })

@@ -9,7 +9,7 @@ let
   theme = pkgs.fetchFromGitHub {
     owner = "phamhuulocforwork";
     repo = "refind-theme";
-    rev = "main";
+    rev = "f408d51d54b4c8de5628d14b8d095752dbd89e92";
     hash = "sha256-sIxu1Zs/0ZYtt7EQFhzB+AQ6coy1TW+6mCqAV5gM/ic=";
   };
 in

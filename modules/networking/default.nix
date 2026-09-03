@@ -11,16 +11,24 @@
       "systemd-resolved"
       "none"
     ];
-    default = "dnsproxy";
+    default = "dnscrypt-proxy";
     description = "DNS resolver/proxy backend.";
   };
   config = {
-    networking.networkmanager = {
-      enable = true;
-      wifi = {
-        backend = "iwd";
-        macAddress = "random";
+    networking = {
+      networkmanager = {
+        enable = true;
+        wifi = {
+          backend = "iwd";
+          macAddress = "random";
+        };
       };
+      nftables.enable = true;
+    };
+    services.firewalld = {
+      enable = true;
+      settings.DefaultZone = "public";
+      zones.public.services = [ "dhcpv6-client" ];
     };
     users.users.vize.extraGroups = [ "networkmanager" ];
   };
