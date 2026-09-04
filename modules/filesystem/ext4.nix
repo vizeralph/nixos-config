@@ -19,6 +19,7 @@ in
       description = "Swap storage type.";
     };
   };
+
   config = lib.mkMerge [
     {
       fileSystems = {

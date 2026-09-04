@@ -4,8 +4,10 @@
   pkgs,
   ...
 }:
+
 {
   imports = [ ./neovim.nix ];
+
   environment = {
     systemPackages = [
       pkgs.bat
@@ -67,7 +69,10 @@
     permittedInsecurePackages = [ "electron-40.10.5" ];
   };
   programs = {
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+    };
     localsend.enable = true;
     nano.enable = false;
     niri = {
@@ -76,9 +81,9 @@
     };
     obs-studio = {
       enable = true;
-      package = (
-        pkgs.obs-studio.override { cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers; }
-      );
+      package = pkgs.obs-studio.override {
+        cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
+      };
       plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
     steam.enable = true;

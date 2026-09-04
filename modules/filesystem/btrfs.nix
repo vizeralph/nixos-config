@@ -9,6 +9,7 @@ let
 in
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
+
   options.modules.filesystem.btrfs = {
     impermanence.enable = lib.mkEnableOption "Btrfs root rollback and persistent storage management";
     swap = {
@@ -28,6 +29,7 @@ in
       };
     };
   };
+
   config = lib.mkMerge [
     {
       fileSystems = {

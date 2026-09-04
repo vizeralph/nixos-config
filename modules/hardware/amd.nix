@@ -7,6 +7,7 @@ in
     cpu.enable = lib.mkEnableOption "AMD CPU support";
     gpu.enable = lib.mkEnableOption "AMD GPU support";
   };
+
   config = lib.mkMerge [
     (lib.mkIf cfg.cpu.enable {
       boot.kernelModules = [ "kvm-amd" ];

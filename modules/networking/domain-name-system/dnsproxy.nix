@@ -24,8 +24,13 @@ in
           "94.140.15.15:53"
           "[2a10:50c0::ad1:ff]:53"
           "[2a10:50c0::ad2:ff]:53"
+
+          "76.76.2.11:53"
+          "76.76.10.11:53"
+          "[2606:1a40::11]:53"
+          "[2606:1a40:1::11]:53"
         ];
-        fallback = [ "https://dns.adguard-dns.com/dns-query" ];
+        fallback = [ "quic://p2.freedns.controld.com" ];
         ratelimit-subnet-len-ipv6 = 64;
         cache = true;
       };

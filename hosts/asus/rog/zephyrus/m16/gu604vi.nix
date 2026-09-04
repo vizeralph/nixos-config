@@ -1,4 +1,6 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+
+{
   imports = [
     (inputs.self + "/modules")
     (inputs.self + "/modules/bootloader")
@@ -9,6 +11,7 @@
     (inputs.self + "/modules/hardware/nvidia.nix")
     (inputs.self + "/modules/networking")
   ];
+
   modules = {
     bootloader.type = "grub";
     filesystem.btrfs.swap = {
@@ -21,6 +24,7 @@
     };
     networking.domainNameSystem.type = "dnsproxy";
   };
+
   boot.loader.efi.canTouchEfiVariables = true;
   hardware = {
     enableRedistributableFirmware = true;
@@ -39,6 +43,7 @@
     };
   };
   networking.hostName = "vize-zephyrus-m16-gu604vi";
+  nixpkgs.hostPlatform = "x86_64-linux";
   services.asusd.enable = true;
   system.stateVersion = "26.05";
 }

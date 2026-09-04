@@ -12,6 +12,7 @@ in
     cpu.enable = lib.mkEnableOption "Intel CPU support";
     gpu.enable = lib.mkEnableOption "Intel GPU support";
   };
+
   config = lib.mkMerge [
     (lib.mkIf cfg.cpu.enable {
       boot.kernelModules = [ "kvm-intel" ];

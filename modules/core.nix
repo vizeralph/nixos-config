@@ -1,4 +1,6 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+
+{
   boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.bluetooth.enable = true;
   nix = {
@@ -19,7 +21,7 @@
   nixpkgs.overlays = [
     (_: prev: {
       stable = import inputs.nixpkgs-stable {
-        system = prev.stdenv.hostPlatform.system;
+        localSystem = prev.stdenv.hostPlatform;
         config.allowUnfreePackages = prev.config.allowUnfreePackages or [ ];
         config.permittedInsecurePackages = prev.config.permittedInsecurePackages or [ ];
       };

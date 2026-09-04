@@ -1,9 +1,12 @@
-{ lib, ... }: {
+{ lib, ... }:
+
+{
   imports = [
     ./domain-name-system/dnscrypt-proxy.nix
     ./domain-name-system/dnsproxy.nix
     ./domain-name-system/systemd-resolved.nix
   ];
+
   options.modules.networking.domainNameSystem.type = lib.mkOption {
     type = lib.types.enum [
       "dnscrypt-proxy"
@@ -14,6 +17,7 @@
     default = "dnscrypt-proxy";
     description = "DNS resolver/proxy backend.";
   };
+
   config = {
     networking = {
       networkmanager = {

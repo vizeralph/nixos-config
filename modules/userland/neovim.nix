@@ -2,7 +2,7 @@
 let
   neovim = pkgs.symlinkJoin {
     name = "neovim";
-    paths = [ pkgs.neovim ];
+    paths = [ pkgs.neovim-unwrapped ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/nvim --prefix PATH : ${

@@ -11,13 +11,13 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
+
   outputs =
     inputs:
     let
       mkHost =
         hostModule:
         inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
           modules = [ hostModule ];
           specialArgs = { inherit inputs; };
         };

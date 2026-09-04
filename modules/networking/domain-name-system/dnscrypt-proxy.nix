@@ -17,13 +17,15 @@ in
         server_names = [
           "adguard-dns-doh"
           "adguard-dns-doh-ipv6"
+
+          "controld-block-malware-ad"
         ];
         listen_addresses = [
           "127.0.0.1:53"
           "[::1]:53"
         ];
         ipv6_servers = true;
-        require_dnssec = true;
+        http3 = true;
       };
     };
   };

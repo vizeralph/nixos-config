@@ -7,6 +7,7 @@ in
     ./grub.nix
     ./refind.nix
   ];
+
   options.modules.bootloader.type = lib.mkOption {
     type = lib.types.enum [
       "grub"
@@ -16,6 +17,7 @@ in
     default = "systemd-boot";
     description = "Bootloader type.";
   };
+
   config.boot = {
     consoleLogLevel = 3;
     kernelParams = [ "quiet" ];
