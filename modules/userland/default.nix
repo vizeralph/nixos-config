@@ -66,7 +66,7 @@
       "steam-unwrapped"
       "vista-fonts"
     ];
-    permittedInsecurePackages = [ "electron-40.10.5" ];
+    permittedInsecurePackages = [ ];
   };
   programs = {
     hyprland = {
@@ -108,7 +108,6 @@
     };
     flatpak.enable = true;
     pipewire.jack.enable = true;
-    power-profiles-daemon.enable = true;
     sunshine = {
       capSysAdmin = true;
       enable = true;

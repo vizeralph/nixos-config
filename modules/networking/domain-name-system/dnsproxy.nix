@@ -4,13 +4,6 @@ let
 in
 {
   config = lib.mkIf (cfg.type == "dnsproxy") {
-    networking = {
-      nameservers = [
-        "127.0.0.1"
-        "::1"
-      ];
-      networkmanager.dns = "none";
-    };
     services.dnsproxy = {
       enable = true;
       settings = {
