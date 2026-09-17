@@ -6,19 +6,19 @@
 }:
 
 {
-  imports = [ ./neovim.nix ];
+  imports = [
+    ./neovim.nix
+    ./performance-scaling.nix
+  ];
 
   environment = {
     systemPackages = [
+      pkgs.stable.davinci-resolve
+
       pkgs.bat
       pkgs.bitwarden-desktop
       pkgs.brightnessctl
-      (pkgs.btop.override {
-        cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
-        rocmSupport = lib.elem "amdgpu" config.services.xserver.videoDrivers;
-      })
       pkgs.darkman
-      pkgs.davinci-resolve
       pkgs.eza
       pkgs.faugus-launcher
       pkgs.firefox
@@ -39,11 +39,16 @@
       pkgs.qbittorrent
       pkgs.quickshell
       pkgs.starship
-      pkgs.winboat
+      pkgs.wget
       pkgs.wiremix
       pkgs.wl-clipboard
       pkgs.xwayland-satellite
       pkgs.yazi
+
+      (pkgs.btop.override {
+        cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
+        rocmSupport = lib.elem "amdgpu" config.services.xserver.videoDrivers;
+      })
     ];
     variables = {
       EDITOR = "nvim";

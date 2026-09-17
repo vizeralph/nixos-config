@@ -18,7 +18,6 @@ in
   options.modules.networking.domainNameSystem.type = lib.mkOption {
     type = lib.types.enum (builtins.attrNames backends);
     default = "dnscrypt-proxy";
-    description = "DNS resolver/proxy backend.";
   };
 
   config = lib.mkMerge [
@@ -40,6 +39,7 @@ in
       };
       users.users.vize.extraGroups = [ "networkmanager" ];
     }
+
     (lib.mkIf backends.${cfg.type} {
       networking = {
         nameservers = [

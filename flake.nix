@@ -24,9 +24,10 @@
     in
     {
       nixosConfigurations = {
-        vize-strix-scar-15-g533qr = mkHost ./hosts/asus/rog/strix/scar/15/g533qr.nix;
-        vize-zephyrus-m16-gu604vi = mkHost ./hosts/asus/rog/zephyrus/m16/gu604vi.nix;
-        vize-yoga-7-14irl8 = mkHost ./hosts/lenovo/yoga/7/14irl8.nix;
+        vize-helios-neo-phn16-72 = mkHost ./hosts/acer/predator-helios-neo/phn16-72.nix;
+        vize-strix-scar-g533qr = mkHost ./hosts/asus/rog-strix-scar/g533qr.nix;
+        vize-zephyrus-m16-gu604vi = mkHost ./hosts/asus/rog-zephyrus-m16/gu604vi.nix;
+        vize-yoga-7-14irl8 = mkHost ./hosts/lenovo/yoga-7/14irl8.nix;
         vize-portable = mkHost ./hosts/portable.nix;
         vize-wsl = mkHost ./hosts/wsl.nix;
       };

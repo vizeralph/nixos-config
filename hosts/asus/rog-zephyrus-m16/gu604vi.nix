@@ -23,6 +23,7 @@
       gpu.enable = true;
     };
     networking.domainNameSystem.type = "dnsproxy";
+    userland.performanceScaling.type = "asusd";
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -44,6 +45,5 @@
   };
   networking.hostName = "vize-zephyrus-m16-gu604vi";
   nixpkgs.hostPlatform = "x86_64-linux";
-  services.asusd.enable = true;
   system.stateVersion = "26.05";
 }

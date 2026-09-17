@@ -7,7 +7,7 @@
       paths = [ pkgs.neovim-unwrapped ];
       nativeBuildInputs = [ pkgs.makeWrapper ];
       postBuild = ''
-        wrapProgram $out/bin/nvim --prefix PATH : ${
+        wrapProgram "$out/bin/nvim" --prefix PATH : ${
           lib.makeBinPath [
             pkgs.fd
             pkgs.gcc

@@ -26,6 +26,7 @@
       };
     };
     networking.domainNameSystem.type = "dnsproxy";
+    userland.performanceScaling.type = "both";
   };
 
   boot.loader.grub.efiInstallAsRemovable = true;
@@ -38,8 +39,17 @@
     hostName = "vize-portable";
     networkmanager.wifi.powersave = true;
   };
-  nixpkgs.hostPlatform = "x86_64-linux";
-  services.asusd.enable = true;
+  nixpkgs = {
+    config.allowUnfreePackages = [
+      "b43-firmware"
+      "broadcom-bt-firmware"
+      "facetimehd-calibration"
+      "facetimehd-firmware"
+      "nvidia-kernel-modules"
+      "xone-dongle-firmware"
+    ];
+    hostPlatform = "x86_64-linux";
+  };
   specialisation.g533q.configuration.boot = {
     kernelParams = [ "processor.max_cstate=1" ];
     loader.grub.configurationName = "2021 ROG Strix SCAR 15";

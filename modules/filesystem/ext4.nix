@@ -5,9 +5,8 @@ in
 {
   options.modules.filesystem.ext4.swap = {
     size = lib.mkOption {
-      type = lib.types.int;
+      type = lib.types.ints.positive;
       default = 8 * 1024;
-      description = "Swapfile size in megabytes.";
     };
     type = lib.mkOption {
       type = lib.types.enum [
@@ -16,7 +15,6 @@ in
         "none"
       ];
       default = "none";
-      description = "Swap storage type.";
     };
   };
 
@@ -38,6 +36,7 @@ in
         };
       };
     }
+
     (lib.mkIf (cfg.swap.type != "none") {
       boot.zswap.enable = true;
       swapDevices = [
@@ -49,7 +48,7 @@ in
             if cfg.swap.type == "file" then
               {
                 device = "/var/lib/swapfile";
-                size = cfg.swap.size;
+                inherit (cfg.swap) size;
               }
             else
               { label = "swap"; }

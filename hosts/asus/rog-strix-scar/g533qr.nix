@@ -28,6 +28,7 @@
       gpu.enable = true;
     };
     networking.domainNameSystem.type = "dnsproxy";
+    userland.performanceScaling.type = "asusd";
   };
 
   boot = {
@@ -66,8 +67,7 @@
       };
     };
   };
-  networking.hostName = "vize-strix-scar-15-g533qr";
+  networking.hostName = "vize-strix-scar-g533qr";
   nixpkgs.hostPlatform = "x86_64-linux";
-  services.asusd.enable = true;
   system.stateVersion = "26.05";
 }

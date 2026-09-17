@@ -4,17 +4,15 @@ let
     fsType = "cifs";
     options = [
       "credentials=/etc/samba/credentials"
-      "gid=100"
-      "noauto"
+      "gid=users"
       "nodev"
       "noexec"
       "nofail"
       "nosuid"
       "seal"
-      "uid=1000"
+      "uid=vize"
       "vers=3.1.1"
       "x-systemd.automount"
-      "x-systemd.device-timeout=5s"
       "x-systemd.idle-timeout=60"
       "x-systemd.mount-timeout=5s"
     ];

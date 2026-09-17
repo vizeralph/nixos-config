@@ -11,12 +11,11 @@ in
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   options.modules.filesystem.btrfs = {
-    impermanence.enable = lib.mkEnableOption "Btrfs root rollback and persistent storage management";
+    impermanence.enable = lib.mkEnableOption "impermanence for btrfs.";
     swap = {
       size = lib.mkOption {
-        type = lib.types.int;
+        type = lib.types.ints.positive;
         default = 8 * 1024;
-        description = "Swapfile size in megabytes.";
       };
       type = lib.mkOption {
         type = lib.types.enum [
@@ -25,7 +24,6 @@ in
           "none"
         ];
         default = "none";
-        description = "Swap storage type.";
       };
     };
   };
@@ -88,6 +86,7 @@ in
         };
       };
     }
+
     (lib.mkIf cfg.impermanence.enable {
       boot.initrd.postResumeCommands = lib.mkAfter ''
         mkdir /btrfs_tmp
@@ -157,7 +156,7 @@ in
             else
               {
                 device = "/swap/swapfile";
-                size = cfg.swap.size;
+                inherit (cfg.swap) size;
               }
           )
         )

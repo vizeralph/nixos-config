@@ -15,7 +15,6 @@ in
       "systemd-boot"
     ];
     default = "systemd-boot";
-    description = "Bootloader type.";
   };
 
   config.boot = {

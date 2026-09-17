@@ -21,9 +21,8 @@
   nixpkgs.overlays = [
     (_: prev: {
       stable = import inputs.nixpkgs-stable {
-        localSystem = prev.stdenv.hostPlatform;
-        config.allowUnfreePackages = prev.config.allowUnfreePackages or [ ];
-        config.permittedInsecurePackages = prev.config.permittedInsecurePackages or [ ];
+        localSystem.system = prev.stdenv.hostPlatform.system;
+        config = { inherit (prev.config) allowUnfreePackages permittedInsecurePackages; };
       };
     })
   ];

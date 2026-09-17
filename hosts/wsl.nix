@@ -3,7 +3,11 @@
 {
   imports = [ inputs.nixos-wsl.nixosModules.default ];
 
-  environment.systemPackages = [ pkgs.git ];
+  environment.systemPackages = [
+    pkgs.git
+    pkgs.wget
+  ];
+  networking.hostName = "vize-wsl";
   nix.settings.experimental-features = [
     "flakes"
     "nix-command"
