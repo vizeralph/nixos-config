@@ -35,6 +35,7 @@ in
       services.firewalld = {
         enable = true;
         settings.DefaultZone = "public";
+        zones.nixos-fw-default.services = [ "dhcpv6-client" ];
         zones.public.services = [ "dhcpv6-client" ];
       };
       users.users.vize.extraGroups = [ "networkmanager" ];

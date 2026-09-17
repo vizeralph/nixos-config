@@ -87,6 +87,8 @@ in
       };
     }
 
+    # FIXME: Migrate impermanence root rollback to systemd initrd once upstream
+    # documents/supports it; `postResumeCommands` requires deprecated scripted stage 1.
     (lib.mkIf cfg.impermanence.enable {
       boot.initrd.postResumeCommands = lib.mkAfter ''
         mkdir /btrfs_tmp

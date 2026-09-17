@@ -32,7 +32,7 @@
       pkgs.kitty
       pkgs.krita
       pkgs.libreoffice
-      pkgs.material-cursors
+      pkgs.material-cursors # TODO: Replace with a simpler/personalized cursor theme.
       pkgs.moonlight
       pkgs.onlyoffice-desktopeditors
       pkgs.proton-vpn
@@ -54,7 +54,7 @@
       EDITOR = "nvim";
       VISUAL = "nvim";
       XCURSOR_SIZE = "32";
-      XCURSOR_THEME = "material_cursors";
+      XCURSOR_THEME = "material_cursors"; # TODO: Update with the replacement cursor theme.
     };
   };
   fonts.packages = [

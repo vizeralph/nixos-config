@@ -14,6 +14,8 @@ let
   };
 in
 {
+  # FIXME: Revisit rEFInd once upstream reliably honors an empty `showtools`
+  # directive and NixOS exposes control over generated entry/submenu layout.
   config = lib.mkIf (cfg.type == "refind") {
     boot.loader.refind = {
       additionalFiles = {

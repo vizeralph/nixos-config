@@ -8,6 +8,8 @@ let
   cfg = config.modules.bootloader;
 in
 {
+  # FIXME: Use a flat generation list once NixOS exposes control over the
+  # generated GRUB "All configurations" submenu.
   config = lib.mkIf (cfg.type == "grub") {
     boot.loader.grub = {
       default = "saved";
