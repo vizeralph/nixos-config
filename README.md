@@ -1,88 +1,44 @@
 # nixos-config
 
 > **Ex dissatisfactione, evolutio.**  
-> _(Out of dissatisfaction, evolution.)_
+> *(Out of dissatisfaction, evolution.)*
 
-My personal, flake-based NixOS configurations. Born out of systemic dissatisfaction with imperative operating systems, this repository represents a continuous evolution toward a predictable, reproducible, and highly optimized desktop environment.
+My personal, flake-based NixOS configuration.
 
-Tailored for high-performance hardware while maintaining a resilient, hardware-agnostic portable target.
+The repository is structured around multiple hosts backed by reusable modules, with machine-specific configuration kept
+separate from the shared system and userland baseline.
 
-## System Architecture
+This is primarily maintained for my own systems and preferences rather than as a general-purpose NixOS distribution.
+The configuration is nevertheless kept modular and inspectable enough to reuse or adapt where appropriate.
 
-This repository uses a modular multi-host architecture. Hosts define machine-specific hardware and policy choices, while reusable modules provide the common system baseline and selectable implementations.
+## Structure
 
 ```text
-├── flake.nix
-├── hosts/
-│   ├── asus/
-│   │   └── rog/
-│   │       ├── strix/scar/15/g533qr.nix
-│   │       └── zephyrus/m16/gu604vi.nix
-│   ├── lenovo/
-│   │   └── yoga/7/14irl8.nix
-│   └── portable.nix
-└── modules/
-    ├── bootloader/
-    │   ├── default.nix
-    │   ├── grub.nix
-    │   ├── limine.nix
-    │   └── refind.nix
-    ├── display-manager/
-    │   ├── lemurs.nix
-    │   ├── lightdm.nix
-    │   ├── ly.nix
-    │   └── sddm.nix
-    ├── filesystem/
-    │   ├── btrfs.nix
-    │   └── ext4.nix
-    ├── hardware/
-    │   ├── amd.nix
-    │   ├── intel.nix
-    │   └── nvidia.nix
-    ├── networking/
-    │   ├── default.nix
-    │   ├── dnscrypt-proxy.nix
-    │   ├── dnsproxy.nix
-    │   └── systemd-resolved.nix
-    ├── core.nix
-    ├── default.nix
-    ├── imaging.nix
-    ├── locale.nix
-    └── userland.nix
+.
+├── hosts/      # Machine-specific configurations
+├── modules/    # Shared and reusable system modules
+├── flake.lock
+└── flake.nix
 ```
 
-### Configurations
+Available NixOS configurations can be inspected with:
 
-- `vize-portable` — hardware-agnostic portable environment using Ext4
-- `vize-strix-scar-15-g533qr` — ASUS ROG Strix SCAR 15 with AMD/NVIDIA hybrid graphics
-- `vize-zephyrus-m16-gu604vi` — ASUS ROG Zephyrus M16 with Intel/NVIDIA hybrid graphics
-- `vize-yoga-7-14irl8` — Lenovo Yoga 7 with Intel graphics
+```bash
+nix flake show
+```
 
-## Feature Highlights
+## Installation
 
-- **Bootloaders:** Selectable `GRUB`, `Limine`, `rEFInd`, or `systemd-boot` backend with shared boot policy and backend-specific configuration.
-- **Display Manager:** Deploys `ly`, a lightweight TUI display manager configured with an animated **colormix** background. Alternative Lemurs, LightDM, and SDDM configurations are also maintained.
-- **Domain Name System:** Selectable `dnscrypt-proxy`, `dnsproxy`, `systemd-resolved`, or unmanaged DNS. The default `dnsproxy` configuration uses encrypted **DNS-over-QUIC** with AdGuard and HTTPS fallback.
-- **Filesystems:** Supports Ext4 and Btrfs with swapfiles or swap partitions and Zswap.
-- **Hardware:** Modular AMD, Intel, and NVIDIA support with hybrid graphics, PRIME offload, NVIDIA power management, and hardware-dependent GPU acceleration.
-- **System Maintenance:** Automated garbage collection on the first and third **Monday** of each month and Nix store optimization on the first and third **Friday**.
-- **Window Manager:** Uses `Hyprland` as the primary Wayland compositor.
-- **Containers:** Provides rootless container tooling through `Podman`.
+From a NixOS installation environment, prepare and mount the target filesystems under `/mnt`, then install the desired
+configuration:
 
-## Userland
+```bash
+sudo nixos-install --flake .#<host>
+```
 
-The shared desktop and command-line environment is defined in `modules/userland.nix`.
+The host name corresponds to an entry under `nixosConfigurations` in `flake.nix`.
 
-- **Applications:** `bitwarden-desktop`, `davinci-resolve`, `firefox`, `gimp`, `keepassxc`, `krita`, `libreoffice-fresh`, `obs-studio`, `onlyoffice-desktopeditors`, `proton-vpn`
-- **Desktop & Wayland:** `darkman`, `gammastep`, `hyprshot`, `quickshell`, `wl-clipboard`
-- **Development:** `git`, `neovim`, `nixd`, `nixfmt`
-- **Shell & Terminal:** `bat`, `btop`, `eza`, `kitty`, `starship`, `yazi`, `zsh`
-- **Gaming:** `Steam` with a dedicated Gamescope session
-- **Utilities:** `brightnessctl`, `LocalSend`
-
-GPU-aware packages such as `btop` and OBS are configured according to the active AMD or NVIDIA graphics backend.
-
-## Installation & Deployment
+## Deployment
 
 Check the flake:
 
@@ -93,18 +49,11 @@ nix flake check
 Build a configuration without activating it:
 
 ```bash
-sudo nixos-rebuild build --flake .#<hostName>
+sudo nixos-rebuild build --flake .#<host>
 ```
 
-Deploy it:
+Build and activate it:
 
 ```bash
-sudo nixos-rebuild switch --flake .#<hostName>
+sudo nixos-rebuild switch --flake .#<host>
 ```
-
-## Core Specifications
-
-- **Architecture:** `x86_64-linux`
-- **NixOS Channel:** `nixos-unstable`
-- **Stable Package Overlay:** `nixos-26.05`
-- **State Version:** `26.05`
