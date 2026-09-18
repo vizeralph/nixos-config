@@ -9,10 +9,6 @@ in
   ];
 
   options.modules.bootloader = {
-    verbose = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
     type = lib.mkOption {
       type = lib.types.enum [
         "grub"
@@ -20,6 +16,10 @@ in
         "systemd-boot"
       ];
       default = "systemd-boot";
+    };
+    verbose = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
     };
   };
 

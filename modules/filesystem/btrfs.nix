@@ -11,7 +11,7 @@ in
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   options.modules.filesystem.btrfs = {
-    impermanence.enable = lib.mkEnableOption "impermanence for btrfs.";
+    impermanence.enable = lib.mkEnableOption "impermanence for Btrfs";
     swap = {
       size = lib.mkOption {
         type = lib.types.ints.positive;
