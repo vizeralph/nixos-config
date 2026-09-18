@@ -26,7 +26,10 @@
       };
     })
   ];
-  security.sudo.extraConfig = ''Defaults env_keep+="EDITOR VISUAL"'';
+  security = {
+    rtkit.enable = true;
+    sudo.extraConfig = ''Defaults env_keep+="EDITOR VISUAL"'';
+  };
   users.users.vize = {
     extraGroups = [ "wheel" ];
     initialPassword = "12345";

@@ -6,7 +6,6 @@
     (inputs.self + "/modules/bootloader")
     (inputs.self + "/modules/display-manager/ly.nix")
     (inputs.self + "/modules/filesystem/btrfs.nix")
-    (inputs.self + "/modules/filesystem/cifs.nix")
     (inputs.self + "/modules/hardware/intel.nix")
     (inputs.self + "/modules/hardware/nvidia.nix")
     (inputs.self + "/modules/networking")
