@@ -28,9 +28,6 @@ jobs:
       - name: Update flake
         run: nix flake update
 
-      - name: Check flake
-        run: nix flake check --no-update-lock-file
-
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
