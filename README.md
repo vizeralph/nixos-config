@@ -14,7 +14,7 @@ The configuration is nevertheless kept modular and inspectable enough to reuse o
 ## Structure
 
 ```text
-.
+nixos/
 ├── hosts/      # Machine-specific configurations
 ├── modules/    # Shared and reusable system modules
 ├── flake.lock
