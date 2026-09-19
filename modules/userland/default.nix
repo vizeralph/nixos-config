@@ -13,12 +13,11 @@
 
   environment = {
     systemPackages = [
-      pkgs.stable.davinci-resolve
-
       pkgs.bat
       pkgs.bitwarden-desktop
       pkgs.brightnessctl
       pkgs.darkman
+      pkgs.davinci-resolve
       pkgs.eza
       pkgs.faugus-launcher
       pkgs.firefox
