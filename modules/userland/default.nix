@@ -34,6 +34,8 @@
       pkgs.material-cursors # TODO: Replace with a simpler/personalized cursor theme.
       pkgs.moonlight
       pkgs.onlyoffice-desktopeditors
+      pkgs.osu-lazer
+      pkgs.prismlauncher
       pkgs.proton-vpn
       pkgs.qbittorrent
       pkgs.quickshell
@@ -66,6 +68,7 @@
     allowUnfreePackages = [
       "corefonts"
       "davinci-resolve"
+      "osu-lazer"
       "steam"
       "steam-unwrapped"
       "vista-fonts"
