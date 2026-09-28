@@ -10,10 +10,11 @@
         wrapProgram "$out/bin/nvim" --prefix PATH : ${
           lib.makeBinPath [
             pkgs.fd
-            pkgs.gcc
             pkgs.nixd
             pkgs.nixfmt
             pkgs.ripgrep
+            pkgs.stdenv.cc
+            pkgs.tree-sitter
           ]
         }
       '';
