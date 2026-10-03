@@ -87,39 +87,67 @@ in
       };
     }
 
-    # FIXME: Migrate impermanence root rollback to systemd initrd once upstream
-    # documents/supports it; `postResumeCommands` requires deprecated scripted stage 1.
     (lib.mkIf cfg.impermanence.enable {
-      boot.initrd.postResumeCommands = lib.mkAfter ''
-        mkdir /btrfs_tmp
-        mount /dev/disk/by-label/nixos /btrfs_tmp
+      boot.initrd.systemd.services.recreate-root = {
+        ##########
+        # [UNIT] #
+        ##########
+        requires = [ "initrd-root-device.target" ];
+        before = [ "sysroot.mount" ];
+        after = [
+          "initrd-root-device.target"
+          "local-fs-pre.target"
+        ];
+        unitConfig.DefaultDependencies = false;
 
-        if [[ -e /btrfs_tmp/root ]]; then
-            mkdir -p /btrfs_tmp/old_roots
-            timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
-            mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-        fi
+        #############
+        # [Service] #
+        #############
+        serviceConfig.Type = "oneshot";
+        script = ''
+          mountpoint=/btrfs_tmp
+          root="$mountpoint/root"
+          old_roots="$mountpoint/old_roots"
 
-        delete_subvolume_recursively() {
-            IFS=$'\n'
-            for subvolume in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                delete_subvolume_recursively "/btrfs_tmp/$subvolume"
-            done
-            btrfs subvolume delete "$1"
-        }
+          mkdir --parents "$mountpoint"
+          mount --types btrfs --options subvolid=5 ${
+            lib.escapeShellArg config.fileSystems."/".device
+          } "$mountpoint"
 
-        for old_root in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
-            delete_subvolume_recursively "$old_root"
-        done
+          trap 'umount "$mountpoint"' EXIT
 
-        btrfs subvolume create /btrfs_tmp/root
-        umount /btrfs_tmp
-      '';
+          if [[ -e "$root" ]]; then
+              mkdir --parents "$old_roots"
+              timestamp=$(date --date="@$(stat --format=%Y "$root")" "+%Y-%m-%d_%H:%M:%S")
+              mv "$root" "$old_roots/$timestamp"
+          fi
+
+          if [[ -d "$old_roots" ]]; then
+              cutoff=$(( $(date +%s) - 30 * 24 * 60 * 60 ))
+
+              for old_root in "$old_roots"/*; do
+                  [[ -e "$old_root" ]] || continue
+
+                  if (( $(stat --format=%Y "$old_root") < cutoff )); then
+                      btrfs subvolume delete --recursive "$old_root"
+                  fi
+              done
+          fi
+
+          btrfs subvolume create "$root"
+        '';
+
+        #############
+        # [Install] #
+        #############
+        requiredBy = [ "initrd.target" ];
+      };
       environment.persistence."/persistent" = {
         directories = [
           "/etc/NetworkManager/system-connections"
           "/var/lib/NetworkManager"
           "/var/lib/bluetooth"
+          "/var/lib/nixos"
         ];
         files = [ "/etc/machine-id" ];
         hideMounts = true;

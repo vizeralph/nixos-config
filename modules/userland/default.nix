@@ -122,15 +122,56 @@
     };
     upower.enable = true;
   };
-  users.users.vize.extraGroups = [
-    "docker"
-    "uinput"
-  ];
-  virtualisation = {
-    docker.enable = true;
-    podman = {
-      enable = true;
-      extraPackages = [ pkgs.podman-compose ];
+  systemd.user.services = {
+    darkman = {
+      ##########
+      # [Unit] #
+      ##########
+      description = "Framework for dark-mode and light-mode transitions.";
+      documentation = [ "man:darkman(1)" ];
+
+      #############
+      # [Service] #
+      #############
+      serviceConfig = {
+        Type = "dbus";
+        BusName = "nl.whynothugo.darkman";
+        ExecStart = "${pkgs.darkman}/bin/darkman run";
+        Restart = "on-failure";
+        TimeoutStopSec = 15;
+        Slice = "background.slice";
+      };
+
+      #############
+      # [Install] #
+      #############
+      wantedBy = [ "default.target" ];
     };
+    gammastep = {
+      ##########
+      # [Unit] #
+      ##########
+      description = "Display colour temperature adjustment";
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+
+      #############
+      # [Service] #
+      #############
+      serviceConfig = {
+        ExecStart = "${pkgs.gammastep}/bin/gammastep";
+        Restart = "on-failure";
+      };
+
+      #############
+      # [Install] #
+      #############
+      wantedBy = [ "graphical-session.target" ];
+    };
+  };
+  users.users.vize.extraGroups = [ "uinput" ];
+  virtualisation.podman = {
+    enable = true;
+    extraPackages = [ pkgs.podman-compose ];
   };
 }
