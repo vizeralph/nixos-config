@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./btop.nix
     ./neovim.nix
     ./performance-scaling.nix
   ];
@@ -45,11 +46,6 @@
       pkgs.wl-clipboard
       pkgs.xwayland-satellite
       pkgs.yazi
-
-      (pkgs.btop.override {
-        cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
-        rocmSupport = lib.elem "amdgpu" config.services.xserver.videoDrivers;
-      })
     ];
     variables = {
       EDITOR = "nvim";
