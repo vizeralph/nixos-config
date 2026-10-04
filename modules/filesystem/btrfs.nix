@@ -36,8 +36,8 @@ in
           label = "nixos";
           options = [
             "compress=zstd"
-            "noatime"
             "subvol=root"
+            "noatime"
           ];
         };
         "/games" = {
@@ -45,8 +45,8 @@ in
           label = "nixos";
           options = [
             "compress=zstd"
-            "noatime"
             "subvol=games"
+            "noatime"
           ];
         };
         "/home" = {
@@ -54,8 +54,8 @@ in
           label = "nixos";
           options = [
             "compress=zstd"
-            "noatime"
             "subvol=home"
+            "noatime"
           ];
         };
         "/nix" = {
@@ -63,8 +63,8 @@ in
           label = "nixos";
           options = [
             "compress=zstd"
-            "noatime"
             "subvol=nix"
+            "noatime"
           ];
         };
         "/var/log" = {
@@ -72,8 +72,8 @@ in
           label = "nixos";
           options = [
             "compress=zstd"
-            "noatime"
             "subvol=log"
+            "noatime"
           ];
         };
         "/boot" = {
@@ -88,9 +88,9 @@ in
     }
 
     (lib.mkIf cfg.impermanence.enable {
-      boot.initrd.systemd.services.recreate-root = {
+      boot.initrd.systemd.services.prepare-ephemeral-root = {
         ##########
-        # [UNIT] #
+        # [Unit] #
         ##########
         requires = [ "initrd-root-device.target" ];
         before = [ "sysroot.mount" ];
@@ -164,8 +164,8 @@ in
         neededForBoot = true;
         options = [
           "compress=zstd"
-          "noatime"
           "subvol=persistent"
+          "noatime"
         ];
       };
       services.userborn = {
@@ -178,8 +178,8 @@ in
         fsType = "btrfs";
         label = "nixos";
         options = [
-          "noatime"
           "subvol=swap"
+          "noatime"
         ];
       };
     })

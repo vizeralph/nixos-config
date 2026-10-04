@@ -29,9 +29,9 @@ in
     (lib.mkIf (cfg.type == "both") {
       services.asusd.asusdConfig.text = ''
         (
-          change_platform_profile_on_ac: false,
-          change_platform_profile_on_battery: false,
-          platform_profile_linked_epp: false,
+            change_platform_profile_on_ac: false,
+            change_platform_profile_on_battery: false,
+            platform_profile_linked_epp: false,
         )
       '';
     })

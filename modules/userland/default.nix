@@ -20,7 +20,6 @@
       pkgs.darkman
       pkgs.davinci-resolve
       pkgs.eza
-      pkgs.faugus-launcher
       pkgs.firefox
       pkgs.gamescope
       pkgs.gammastep

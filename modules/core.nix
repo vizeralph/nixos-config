@@ -28,11 +28,13 @@
   ];
   security = {
     rtkit.enable = true;
-    sudo.extraConfig = ''Defaults env_keep+="EDITOR VISUAL"'';
+    sudo.extraConfig = ''
+      Defaults lecture=never
+      Defaults env_keep+="EDITOR VISUAL"
+    '';
   };
   users.users.vize = {
     extraGroups = [ "wheel" ];
-    initialPassword = "12345";
     isNormalUser = true;
   };
 }

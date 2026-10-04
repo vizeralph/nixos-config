@@ -3,18 +3,21 @@ let
     device = "//192.168.50.1/${share}";
     fsType = "cifs";
     options = [
-      "credentials=/etc/samba/credentials"
-      "gid=users"
       "nodev"
       "noexec"
       "nofail"
       "nosuid"
-      "seal"
-      "uid=vize"
-      "vers=3.1.1"
+
       "x-systemd.automount"
       "x-systemd.idle-timeout=60"
       "x-systemd.mount-timeout=5s"
+
+      "uid=vize"
+      "gid=users"
+
+      "credentials=/etc/samba/credentials"
+      "seal"
+      "vers=3.1.1"
     ];
   };
 in
