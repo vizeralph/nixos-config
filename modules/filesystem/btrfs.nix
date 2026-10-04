@@ -145,11 +145,17 @@ in
       environment.persistence."/persistent" = {
         directories = [
           "/etc/NetworkManager/system-connections"
+          "/etc/asusd"
           "/var/lib/NetworkManager"
           "/var/lib/bluetooth"
           "/var/lib/nixos"
+          "/var/lib/systemd"
         ];
-        files = [ "/etc/machine-id" ];
+        files = [
+          "/etc/ly/save.txt"
+          "/etc/samba/credentials"
+          "/etc/machine-id"
+        ];
         hideMounts = true;
       };
       fileSystems."/persistent" = {
@@ -161,6 +167,10 @@ in
           "noatime"
           "subvol=persistent"
         ];
+      };
+      services.userborn = {
+        enable = true;
+        passwordFilesLocation = "/persistent/etc";
       };
     })
     (lib.mkIf (cfg.swap.type == "file") {
