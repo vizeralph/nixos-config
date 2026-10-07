@@ -25,13 +25,13 @@
       pkgs.gammastep
       pkgs.gimp
       pkgs.git
+      pkgs.grim
       pkgs.heroic
-      pkgs.hyprshot
       pkgs.keepassxc
       pkgs.kitty
       pkgs.krita
       pkgs.libreoffice
-      pkgs.material-cursors # TODO: Replace with a simpler/personalized cursor theme.
+      pkgs.bibata-cursors # TODO: Replace with a simpler/personalized cursor theme.
       pkgs.moonlight
       pkgs.onlyoffice-desktopeditors
       pkgs.osu-lazer
@@ -39,18 +39,18 @@
       pkgs.proton-vpn
       pkgs.qbittorrent
       pkgs.quickshell
+      pkgs.slurp
       pkgs.starship
       pkgs.wget
       pkgs.wiremix
       pkgs.wl-clipboard
-      pkgs.xwayland-satellite
       pkgs.yazi
     ];
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      XCURSOR_SIZE = "32";
-      XCURSOR_THEME = "material_cursors"; # TODO: Update with the replacement cursor theme.
+      XCURSOR_SIZE = "24";
+      XCURSOR_THEME = "Bibata-Modern-Ice"; # TODO: Update with the replacement cursor theme.
     };
   };
   fonts.packages = [
