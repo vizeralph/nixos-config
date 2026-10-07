@@ -76,11 +76,8 @@
       withUWSM = true;
     };
     localsend.enable = true;
+    mango.enable = true;
     nano.enable = false;
-    niri = {
-      enable = true;
-      useNautilus = false;
-    };
     obs-studio = {
       enable = true;
       package = pkgs.obs-studio.override {
@@ -89,10 +86,6 @@
       plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
     steam.enable = true;
-    sway = {
-      enable = true;
-      extraPackages = [ ];
-    };
     zsh.enable = true;
   };
   services = {
