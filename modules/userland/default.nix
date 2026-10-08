@@ -15,6 +15,7 @@
   environment = {
     systemPackages = [
       pkgs.bat
+      pkgs.bibata-cursors # TODO: Replace with a simpler/personalized cursor theme.
       pkgs.bitwarden-desktop
       pkgs.brightnessctl
       pkgs.darkman
@@ -31,7 +32,6 @@
       pkgs.kitty
       pkgs.krita
       pkgs.libreoffice
-      pkgs.bibata-cursors # TODO: Replace with a simpler/personalized cursor theme.
       pkgs.moonlight
       pkgs.onlyoffice-desktopeditors
       pkgs.osu-lazer
