@@ -12,10 +12,9 @@ let
       "x-systemd.idle-timeout=60"
       "x-systemd.mount-timeout=5s"
 
+      "credentials=/etc/samba/credentials"
       "uid=vize"
       "gid=users"
-
-      "credentials=/etc/samba/credentials"
       "seal"
       "vers=3.1.1"
     ];
