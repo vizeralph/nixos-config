@@ -112,6 +112,11 @@
   };
   systemd.user.services = {
     darkman = {
+      path = [
+        pkgs.bash
+        pkgs.dconf
+      ];
+
       ##########
       # [Unit] #
       ##########

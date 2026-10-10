@@ -19,6 +19,7 @@
       hide_key_hints = true;
       hide_version_string = true;
       initial_info_text = "Welcome, VIZE!";
+      session_log = ".ly-session.log";
       shell = false;
       text_in_center = true;
       xinitrc = "null";
