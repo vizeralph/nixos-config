@@ -47,35 +47,75 @@
   networking.hostName = "vize-zephyrus-m16-gu604vi";
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "26.05";
-  systemd.services.power-limit = {
-    enableStrictShellChecks = true;
+  systemd.services = {
+    asus-profile-watch = {
+      enableStrictShellChecks = true;
 
-    ##########
-    # [Unit] #
-    ##########
-    after = [ "asusd.service" ];
+      ##########
+      # [Unit] #
+      ##########
+      after = [ "asusd.service" ];
 
-    #############
-    # [Service] #
-    #############
-    serviceConfig.Type = "oneshot";
-    script = ''
-      zone=/sys/class/powercap/intel-rapl/intel-rapl:0
+      #############
+      # [Service] #
+      #############
+      serviceConfig.Restart = "always";
+      script = ''
+        match="type='signal',"
+        match+="sender='xyz.ljones.Asusd',"
+        match+="path='/xyz/ljones',"
+        match+="interface='org.freedesktop.DBus.Properties',"
+        match+="member='PropertiesChanged',"
+        match+="arg0='xyz.ljones.Platform'"
 
-      test "$(cat "$zone/name")" = package-0
-      test "$(cat "$zone/constraint_0_name")" = long_term
-      test "$(cat "$zone/constraint_1_name")" = short_term
+        busctl --system --json=short --match="$match" monitor |
+        while IFS= read -r _; do
+          systemctl start intel-power-limit.service
+        done
+      '';
 
-      printf '%s\n' 45000000 > "$zone/constraint_0_power_limit_uw"
-      printf '%s\n' 45000000 > "$zone/constraint_1_power_limit_uw"
+      #############
+      # [Install] #
+      #############
+      wantedBy = [ "multi-user.target" ];
+    };
+    intel-power-limit = {
+      enableStrictShellChecks = true;
 
-      test "$(cat "$zone/constraint_0_power_limit_uw")" = 45000000
-      test "$(cat "$zone/constraint_1_power_limit_uw")" = 45000000
-    '';
+      ##########
+      # [Unit] #
+      ##########
+      after = [ "asusd.service" ];
 
-    #############
-    # [Install] #
-    #############
-    wantedBy = [ "multi-user.target" ];
+      #############
+      # [Service] #
+      #############
+      serviceConfig.Type = "oneshot";
+      script = ''
+        zone=/sys/class/powercap/intel-rapl/intel-rapl:0
+
+        case "$(cat /sys/firmware/acpi/platform_profile)" in
+          performance) pl1=45000000 ;;
+          balanced)    pl1=35000000 ;;
+          quiet)       pl1=25000000 ;;
+          *) echo "Unsupported power profile" >&2; exit 1 ;;
+        esac
+
+        test "$(cat "$zone/name")" = package-0
+        test "$(cat "$zone/constraint_0_name")" = long_term
+        test "$(cat "$zone/constraint_1_name")" = short_term
+
+        printf '%s\n' "$pl1" > "$zone/constraint_0_power_limit_uw"
+        printf '%s\n' 45000000 > "$zone/constraint_1_power_limit_uw"
+
+        test "$(cat "$zone/constraint_0_power_limit_uw")" = "$pl1"
+        test "$(cat "$zone/constraint_1_power_limit_uw")" = 45000000
+      '';
+
+      #############
+      # [Install] #
+      #############
+      wantedBy = [ "multi-user.target" ];
+    };
   };
 }
