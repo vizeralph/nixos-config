@@ -89,6 +89,8 @@ in
 
     (lib.mkIf cfg.impermanence.enable {
       boot.initrd.systemd.services.prepare-ephemeral-root = {
+        enableStrictShellChecks = true;
+
         ##########
         # [Unit] #
         ##########

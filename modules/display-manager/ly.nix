@@ -15,10 +15,10 @@
       colormix_col1 = "0x00999999";
       colormix_col2 = "0x00666666";
       colormix_col3 = "0x00333333";
-      corner_top_left = "";
-      corner_top_right = "";
       corner_bottom_left = "";
       corner_bottom_right = "";
+      corner_top_left = "";
+      corner_top_right = "";
       default_input = "password";
       initial_info_text = "Welcome, VIZE!";
       session_log = ".local/state/ly-session.log";
