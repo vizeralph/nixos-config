@@ -15,11 +15,13 @@
       colormix_col1 = "0x00999999";
       colormix_col2 = "0x00666666";
       colormix_col3 = "0x00333333";
+      corner_top_left = "";
+      corner_top_right = "";
+      corner_bottom_left = "";
+      corner_bottom_right = "";
       default_input = "password";
-      hide_key_hints = true;
-      hide_version_string = true;
       initial_info_text = "Welcome, VIZE!";
-      session_log = ".ly-session.log";
+      session_log = ".local/state/ly-session.log";
       shell = false;
       text_in_center = true;
       xinitrc = "null";
