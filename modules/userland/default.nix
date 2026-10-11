@@ -45,6 +45,7 @@
       pkgs.wiremix
       pkgs.wl-clipboard
       pkgs.yazi
+      pkgs.zoxide
     ];
     variables = {
       EDITOR = "nvim";
@@ -86,7 +87,10 @@
       plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
     steam.enable = true;
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+      enableGlobalCompInit = false;
+    };
   };
   services = {
     clamav = {

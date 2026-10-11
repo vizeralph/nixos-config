@@ -59,8 +59,15 @@
       #############
       # [Service] #
       #############
-      serviceConfig.Restart = "always";
+      serviceConfig = {
+        RestartSec = "5s";
+        Restart = "always";
+      };
       script = ''
+        busctl --system get-property \
+        xyz.ljones.Asusd /xyz/ljones \
+        xyz.ljones.Platform PlatformProfile > /dev/null
+
         match="type='signal',"
         match+="sender='xyz.ljones.Asusd',"
         match+="path='/xyz/ljones',"
@@ -70,7 +77,7 @@
 
         busctl --system --json=short --match="$match" monitor |
         while IFS= read -r _; do
-          systemctl start intel-power-limit.service
+            systemctl start intel-power-limit.service
         done
       '';
 
@@ -94,22 +101,22 @@
       script = ''
         zone=/sys/class/powercap/intel-rapl/intel-rapl:0
 
-        case "$(cat /sys/firmware/acpi/platform_profile)" in
-          performance) pl1=45000000 ;;
-          balanced)    pl1=35000000 ;;
-          quiet)       pl1=25000000 ;;
-          *) echo "Unsupported power profile" >&2; exit 1 ;;
-        esac
-
+        test "$(cat "$zone/enabled")" = 1
         test "$(cat "$zone/name")" = package-0
         test "$(cat "$zone/constraint_0_name")" = long_term
+        test "$(cat "$zone/constraint_0_power_limit_uw")" != 0
         test "$(cat "$zone/constraint_1_name")" = short_term
+        test "$(cat "$zone/constraint_1_power_limit_uw")" != 0
+
+        case "$(cat /sys/firmware/acpi/platform_profile)" in
+            performance)  pl1=45000000; pl2=45000000 ;;
+            balanced)     pl1=35000000; pl2=45000000 ;;
+            quiet)        pl1=25000000; pl2=45000000 ;;
+            *)            echo "Unsupported power profile" >&2; exit 1 ;;
+        esac
 
         printf '%s\n' "$pl1" > "$zone/constraint_0_power_limit_uw"
-        printf '%s\n' 45000000 > "$zone/constraint_1_power_limit_uw"
-
-        test "$(cat "$zone/constraint_0_power_limit_uw")" = "$pl1"
-        test "$(cat "$zone/constraint_1_power_limit_uw")" = 45000000
+        printf '%s\n' "$pl2" > "$zone/constraint_1_power_limit_uw"
       '';
 
       #############
