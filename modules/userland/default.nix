@@ -28,6 +28,7 @@
       pkgs.git
       pkgs.grim
       pkgs.heroic
+      pkgs.jq
       pkgs.keepassxc
       pkgs.kitty
       pkgs.krita

@@ -27,7 +27,10 @@
     userland.performanceScaling.type = "asusd";
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    kernelParams = [ "mem_sleep_default=s2idle" ];
+    loader.efi.canTouchEfiVariables = true;
+  };
   hardware = {
     enableRedistributableFirmware = true;
     nvidia = {
