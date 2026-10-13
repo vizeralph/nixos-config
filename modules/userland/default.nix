@@ -35,7 +35,7 @@
       pkgs.libreoffice
       pkgs.moonlight
       pkgs.onlyoffice-desktopeditors
-      pkgs.osu-lazer
+      pkgs.osu-lazer-bin
       pkgs.prismlauncher
       pkgs.proton-vpn
       pkgs.qbittorrent
@@ -66,7 +66,7 @@
     allowUnfreePackages = [
       "corefonts"
       "davinci-resolve"
-      "osu-lazer"
+      "osu-lazer-bin"
       "steam"
       "steam-unwrapped"
       "vista-fonts"

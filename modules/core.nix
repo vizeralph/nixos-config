@@ -35,12 +35,9 @@
   };
   systemd.tmpfiles.rules = [ "z /sys/class/powercap/intel-rapl:0/energy_uj 0440 - rapl - -" ];
   users = {
-    groups.rapl = { };
+    groups.rapl.members = [ "vize" ];
     users.vize = {
-      extraGroups = [
-        "rapl"
-        "wheel"
-      ];
+      extraGroups = [ "wheel" ];
       isNormalUser = true;
     };
   };

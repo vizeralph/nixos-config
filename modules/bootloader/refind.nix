@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.modules.bootloader;
+
   theme = pkgs.fetchFromGitHub {
     owner = "phamhuulocforwork";
     repo = "refind-theme";
