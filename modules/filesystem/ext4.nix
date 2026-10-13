@@ -12,6 +12,7 @@ in
       type = lib.types.enum [
         "file"
         "partition"
+        # ------- #
         "none"
       ];
       default = "none";
@@ -29,10 +30,7 @@ in
         "/boot" = {
           fsType = "vfat";
           label = "BOOT";
-          options = [
-            "dmask=0077"
-            "fmask=0077"
-          ];
+          options = [ "umask=0077" ];
         };
       };
     }

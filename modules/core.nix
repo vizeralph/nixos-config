@@ -21,7 +21,7 @@
   nixpkgs.overlays = [
     (_: prev: {
       stable = import inputs.nixpkgs-stable {
-        localSystem.system = prev.stdenv.hostPlatform.system;
+        localSystem = { inherit (prev.stdenv.hostPlatform) system; };
         config = { inherit (prev.config) allowUnfreePackages permittedInsecurePackages; };
       };
     })
@@ -33,8 +33,15 @@
       Defaults env_keep+="EDITOR VISUAL"
     '';
   };
-  users.users.vize = {
-    extraGroups = [ "wheel" ];
-    isNormalUser = true;
+  systemd.tmpfiles.rules = [ "z /sys/class/powercap/intel-rapl:0/energy_uj 0440 - rapl - -" ];
+  users = {
+    groups.rapl = { };
+    users.vize = {
+      extraGroups = [
+        "rapl"
+        "wheel"
+      ];
+      isNormalUser = true;
+    };
   };
 }

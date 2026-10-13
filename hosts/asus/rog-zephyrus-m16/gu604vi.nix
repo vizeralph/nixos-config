@@ -80,7 +80,7 @@
 
         busctl --system --json=short --match="$match" monitor |
         while IFS= read -r _; do
-            systemctl start intel-power-limit.service
+          systemctl start intel-power-limit.service
         done
       '';
 
@@ -112,10 +112,10 @@
         test "$(cat "$zone/constraint_1_power_limit_uw")" != 0
 
         case "$(cat /sys/firmware/acpi/platform_profile)" in
-            performance)  pl1=45000000; pl2=45000000 ;;
-            balanced)     pl1=35000000; pl2=45000000 ;;
-            quiet)        pl1=25000000; pl2=45000000 ;;
-            *)            echo "Unsupported power profile" >&2; exit 1 ;;
+          performance)  pl1=45000000; pl2=45000000 ;;
+          balanced)     pl1=35000000; pl2=45000000 ;;
+          quiet)        pl1=25000000; pl2=45000000 ;;
+          *)            echo "Unsupported power profile" >&2; exit 1 ;;
         esac
 
         printf '%s\n' "$pl1" > "$zone/constraint_0_power_limit_uw"

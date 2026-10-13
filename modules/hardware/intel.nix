@@ -18,6 +18,7 @@ in
       boot.kernelModules = [ "kvm-intel" ];
       hardware.cpu.intel.updateMicrocode = true;
     })
+
     (lib.mkIf cfg.gpu.enable {
       hardware.graphics.extraPackages = [
         pkgs.intel-compute-runtime

@@ -7,17 +7,28 @@ in
     services.dnscrypt-proxy = {
       enable = true;
       settings = {
+        ###################
+        # GLOBAL SETTINGS #
+        ###################
         server_names = [
           "adguard-dns-doh"
           "adguard-dns-doh-ipv6"
-
+          # ----------------------- #
           "controld-block-malware-ad"
         ];
         listen_addresses = [
           "127.0.0.1:53"
           "[::1]:53"
         ];
+
+        ####################
+        # SERVER SELECTION #
+        ####################
         ipv6_servers = true;
+
+        #######################
+        # CONNECTION SETTINGS #
+        #######################
         http3 = true;
       };
     };

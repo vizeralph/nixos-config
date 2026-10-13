@@ -7,11 +7,11 @@ let
       "noexec"
       "nofail"
       "nosuid"
-
+      # -------------------------------- #
       "x-systemd.automount"
       "x-systemd.idle-timeout=60"
       "x-systemd.mount-timeout=5s"
-
+      # -------------------------------- #
       "credentials=/etc/samba/credentials"
       "uid=vize"
       "gid=users"

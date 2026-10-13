@@ -15,7 +15,7 @@
   environment = {
     systemPackages = [
       pkgs.bat
-      pkgs.bibata-cursors # TODO: Replace with a simpler/personalized cursor theme.
+      pkgs.bibata-cursors
       pkgs.bitwarden-desktop
       pkgs.brightnessctl
       pkgs.darkman
@@ -51,8 +51,9 @@
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
+      # -------------------------------- #
       XCURSOR_SIZE = "24";
-      XCURSOR_THEME = "Bibata-Modern-Ice"; # TODO: Update with the replacement cursor theme.
+      XCURSOR_THEME = "Bibata-Modern-Ice";
     };
   };
   fonts.packages = [
@@ -98,9 +99,9 @@
       daemon = {
         enable = true;
         settings = {
+          MaxScanSize = "2G";
+          MaxFileSize = "2G";
           AlertExceedsMax = true;
-          MaxFileSize = "1G";
-          MaxScanSize = "1G";
         };
       };
       fangfrisch.enable = true;

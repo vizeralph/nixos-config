@@ -7,6 +7,7 @@ in
     type = lib.types.enum [
       "asusd"
       "power-profiles-daemon"
+      # ------------------- #
       "both"
     ];
     default = "power-profiles-daemon";

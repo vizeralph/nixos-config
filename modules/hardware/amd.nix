@@ -13,6 +13,7 @@ in
       boot.kernelModules = [ "kvm-amd" ];
       hardware.cpu.amd.updateMicrocode = true;
     })
+
     (lib.mkIf cfg.gpu.enable {
       hardware.amdgpu.opencl.enable = true;
       services.xserver.videoDrivers = [ "amdgpu" ];
