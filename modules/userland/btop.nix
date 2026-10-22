@@ -13,9 +13,10 @@ in
 {
   environment.systemPackages = [ btop ];
   security.wrappers.btop = lib.mkIf (config.modules.hardware.intel.gpu.enable or false) {
-    source = "${btop}/bin/btop";
+    permissions = "u=rx,g=rx,o=";
     owner = "root";
-    group = "root";
+    group = "rapl";
+    source = "${btop}/bin/btop";
     capabilities = "cap_perfmon+ep";
   };
 }

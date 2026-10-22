@@ -1,12 +1,10 @@
 { config, lib, ... }:
 let
   cfg = config.modules.networking.domainNameSystem;
-
   backends = {
     dnscrypt-proxy = true;
     dnsproxy = true;
     systemd-resolved = false;
-    # --------------------- #
     none = false;
   };
 in

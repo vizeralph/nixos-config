@@ -24,7 +24,6 @@ in
   };
 
   config.boot = {
-    consoleLogLevel = if cfg.verbose then 7 else 3;
     kernelParams = lib.optionals (!cfg.verbose) [ "quiet" ];
     loader = {
       grub.enable = cfg.type == "grub";

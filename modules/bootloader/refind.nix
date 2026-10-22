@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.modules.bootloader;
-
   theme = pkgs.fetchFromGitHub {
     owner = "phamhuulocforwork";
     repo = "refind-theme";
@@ -15,8 +14,7 @@ let
   };
 in
 {
-  # FIXME: Revisit rEFInd once upstream reliably honors an empty `showtools`
-  # directive and NixOS exposes control over generated entry/submenu layout.
+  # FIXME: showtools and submenuentry {}
   config = lib.mkIf (cfg.type == "refind") {
     boot.loader.refind = {
       additionalFiles = {
@@ -30,7 +28,7 @@ in
       };
       enable = true;
       extraConfig = ''
-        hideui badges,hints,label
+        hideui label,hints,badges
         icons_dir refind-theme/icons
         banner refind-theme/background.png
         banner_scale fillscreen

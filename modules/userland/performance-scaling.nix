@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.modules.userland.performanceScaling;
 in
@@ -7,34 +12,25 @@ in
     type = lib.types.enum [
       "asusd"
       "power-profiles-daemon"
-      # ------------------- #
       "both"
     ];
     default = "power-profiles-daemon";
   };
 
-  config = lib.mkMerge [
-    {
-      services = {
-        asusd.enable = lib.elem cfg.type [
-          "asusd"
-          "both"
-        ];
-        power-profiles-daemon.enable = lib.elem cfg.type [
-          "power-profiles-daemon"
-          "both"
-        ];
-      };
-    }
-
-    (lib.mkIf (cfg.type == "both") {
-      services.asusd.asusdConfig.text = ''
-        (
-            change_platform_profile_on_ac: false,
-            change_platform_profile_on_battery: false,
-            platform_profile_linked_epp: false,
-        )
-      '';
-    })
-  ];
+  config = {
+    services = {
+      asusd.enable = cfg.type != "power-profiles-daemon";
+      power-profiles-daemon.enable = cfg.type != "asusd";
+    };
+    systemd.services.asusd.serviceConfig.ExecStartPost = lib.mkIf (cfg.type == "both") (
+      let
+        busctl = "${pkgs.systemd}/bin/busctl --system set-property xyz.ljones.Asusd /xyz/ljones xyz.ljones.Platform";
+      in
+      map (property: "${busctl} ${property} b false") [
+        "ChangePlatformProfileOnAc"
+        "ChangePlatformProfileOnBattery"
+        "PlatformProfileLinkedEpp"
+      ]
+    );
+  };
 }

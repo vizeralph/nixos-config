@@ -21,7 +21,6 @@ in
         type = lib.types.enum [
           "file"
           "partition"
-          # ------- #
           "none"
         ];
         default = "none";
@@ -37,7 +36,6 @@ in
           label = "nixos";
           options = [
             "noatime"
-            # ----------- #
             "compress=zstd"
             "subvol=root"
           ];
@@ -47,7 +45,6 @@ in
           label = "nixos";
           options = [
             "noatime"
-            # ----------- #
             "compress=zstd"
             "subvol=games"
           ];
@@ -57,7 +54,6 @@ in
           label = "nixos";
           options = [
             "noatime"
-            # ----------- #
             "compress=zstd"
             "subvol=home"
           ];
@@ -67,7 +63,6 @@ in
           label = "nixos";
           options = [
             "noatime"
-            # ----------- #
             "compress=zstd"
             "subvol=nix"
           ];
@@ -77,7 +72,6 @@ in
           label = "nixos";
           options = [
             "noatime"
-            # ----------- #
             "compress=zstd"
             "subvol=log"
           ];
@@ -148,6 +142,7 @@ in
         requiredBy = [ "initrd.target" ];
       };
       environment.persistence."/persistent" = {
+        hideMounts = true;
         directories = [
           "/etc/NetworkManager/system-connections"
           "/etc/asusd"
@@ -157,11 +152,9 @@ in
           "/var/lib/systemd"
         ];
         files = [
-          "/etc/ly/save.txt"
           "/etc/samba/credentials"
           "/etc/machine-id"
         ];
-        hideMounts = true;
       };
       fileSystems."/persistent" = {
         fsType = "btrfs";
@@ -169,7 +162,6 @@ in
         neededForBoot = true;
         options = [
           "noatime"
-          # ----------- #
           "compress=zstd"
           "subvol=persistent"
         ];
@@ -186,7 +178,6 @@ in
         label = "nixos";
         options = [
           "noatime"
-          # ----------- #
           "subvol=swap"
         ];
       };

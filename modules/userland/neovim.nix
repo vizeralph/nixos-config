@@ -1,23 +1,28 @@
 { lib, pkgs, ... }:
-
 {
-  environment.systemPackages = [
-    (pkgs.symlinkJoin {
-      name = "neovim";
-      paths = [ pkgs.neovim-unwrapped ];
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-      postBuild = ''
-        wrapProgram "$out/bin/nvim" --prefix PATH : ${
-          lib.makeBinPath [
-            pkgs.fd
-            pkgs.nixd
-            pkgs.nixfmt
-            pkgs.ripgrep
-            pkgs.stdenv.cc
-            pkgs.tree-sitter
-          ]
-        }
-      '';
-    })
-  ];
+  environment = {
+    systemPackages = [
+      (pkgs.symlinkJoin {
+        name = "neovim";
+        paths = [ pkgs.neovim-unwrapped ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram "$out/bin/nvim" --prefix PATH : ${
+            lib.makeBinPath [
+              pkgs.fd
+              pkgs.nixd
+              pkgs.nixfmt
+              pkgs.ripgrep
+              pkgs.stdenv.cc
+              pkgs.tree-sitter
+            ]
+          }
+        '';
+      })
+    ];
+    variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
+  };
 }

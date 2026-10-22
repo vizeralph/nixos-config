@@ -1,6 +1,6 @@
 {
   hardware.nvidia = {
-    dynamicBoost.enable = true;
+    # dynamicBoost.enable = true;
     moduleParams.nvidia.NVreg_EnableS0ixPowerManagement = 1;
     powerManagement.enable = true;
   };

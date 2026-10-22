@@ -1,5 +1,4 @@
 { inputs, pkgs, ... }:
-
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.bluetooth.enable = true;

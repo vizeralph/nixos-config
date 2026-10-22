@@ -13,7 +13,7 @@ in
         server_names = [
           "adguard-dns-doh"
           "adguard-dns-doh-ipv6"
-          # ----------------------- #
+
           "controld-block-malware-ad"
         ];
         listen_addresses = [

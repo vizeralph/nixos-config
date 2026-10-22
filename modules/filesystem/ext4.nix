@@ -12,7 +12,6 @@ in
       type = lib.types.enum [
         "file"
         "partition"
-        # ------- #
         "none"
       ];
       default = "none";
