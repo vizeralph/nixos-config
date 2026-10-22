@@ -22,11 +22,7 @@ in
       if cfg.greeter == "graphical" then
         "${lib.getExe pkgs.cage} -s -- ${lib.getExe pkgs.quickshell} --path ${./greeter.qml}"
       else
-        ''
-          ${lib.getExe pkgs.tuigreet} \
-          --remember-session --remember \
-          --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions
-        '';
+        "${lib.getExe pkgs.tuigreet} --remember-session --remember --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
     useTextGreeter = cfg.greeter == "terminal";
   };
 }
