@@ -12,6 +12,7 @@
     pkgs.moonlight
     pkgs.osu-lazer-bin
     pkgs.prismlauncher
+    pkgs.protonplus
   ];
   nixpkgs.config.allowUnfreePackages = [
     "cccl"
