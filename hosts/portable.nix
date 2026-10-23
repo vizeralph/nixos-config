@@ -44,7 +44,6 @@
     hostPlatform = "x86_64-linux";
   };
   specialisation.g533q.configuration.boot = {
-    # HACK: prevent system freezes
     kernelParams = [ "processor.max_cstate=1" ];
     loader.grub.configurationName = "2021 ROG Strix SCAR 15";
   };

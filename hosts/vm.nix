@@ -7,10 +7,7 @@
 
   modules = {
     bootloader.type = "grub";
-    filesystem.ext4.swap = {
-      size = 16 * 1024;
-      type = "file";
-    };
+    filesystem.ext4.swap.type = "file";
     networking.domainNameSystem.type = "dnsproxy";
   };
 

@@ -24,7 +24,6 @@
   };
 
   boot = {
-    # HACK: prevent system freezes
     kernelParams = [ "processor.max_cstate=1" ];
     loader.efi.canTouchEfiVariables = true;
   };
