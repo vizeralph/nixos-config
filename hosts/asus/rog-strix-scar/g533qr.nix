@@ -2,13 +2,10 @@
 {
   imports = [
     (inputs.self + "/modules")
-    (inputs.self + "/modules/bootloader")
-    (inputs.self + "/modules/display-manager/greetd.nix")
     (inputs.self + "/modules/filesystem/btrfs.nix")
     (inputs.self + "/modules/filesystem/cifs.nix")
     (inputs.self + "/modules/hardware/amd.nix")
     (inputs.self + "/modules/hardware/nvidia.nix")
-    (inputs.self + "/modules/networking")
     (inputs.self + "/modules/patches/speaker-headphone-routing.nix")
   ];
 
@@ -27,6 +24,7 @@
   };
 
   boot = {
+    # HACK: prevent system freezes
     kernelParams = [ "processor.max_cstate=1" ];
     loader.efi.canTouchEfiVariables = true;
   };

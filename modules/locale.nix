@@ -14,6 +14,7 @@
     automatic-timezoned.enable = true;
     geoclue2 = {
       enableStatic = true;
+      enableWifi = lib.mkForce true;
       staticAccuracy = 25000;
       staticAltitude = 0;
     };

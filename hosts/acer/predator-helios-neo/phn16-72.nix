@@ -2,12 +2,9 @@
 {
   imports = [
     (inputs.self + "/modules")
-    (inputs.self + "/modules/bootloader")
-    (inputs.self + "/modules/display-manager/greetd.nix")
     (inputs.self + "/modules/filesystem/btrfs.nix")
     (inputs.self + "/modules/hardware/intel.nix")
     (inputs.self + "/modules/hardware/nvidia.nix")
-    (inputs.self + "/modules/networking")
   ];
 
   modules = {

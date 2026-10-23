@@ -31,6 +31,7 @@
         vize-zephyrus-m16-gu604vi = mkHost ./hosts/asus/rog-zephyrus-m16/gu604vi.nix;
         vize-yoga-7-14irl8 = mkHost ./hosts/lenovo/yoga-7/14irl8.nix;
         vize-portable = mkHost ./hosts/portable.nix;
+        vize-vm = mkHost ./hosts/vm.nix;
         vize-wsl = mkHost ./hosts/wsl.nix;
       };
     };

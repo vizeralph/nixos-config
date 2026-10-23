@@ -24,22 +24,13 @@
     "steam-unwrapped"
   ];
   programs.steam.enable = true;
-  security.wrappers.sunshine =
-    lib.mkIf (config.services.sunshine.enable && config.services.sunshine.capSysAdmin)
-      {
-        group = lib.mkForce "streaming";
-        permissions = "u=rx,g=rx,o=";
-      };
   services.sunshine = {
-    package = pkgs.sunshine.override {
-      cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
-    };
     capSysAdmin = true;
     enable = true;
     openFirewall = true;
+    package = pkgs.sunshine.override {
+      cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
+    };
   };
-  users = {
-    groups.streaming.members = [ "vize" ];
-    users.vize.extraGroups = [ "uinput" ];
-  };
+  users.users.vize.extraGroups = [ "uinput" ];
 }

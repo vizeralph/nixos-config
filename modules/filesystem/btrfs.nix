@@ -6,6 +6,15 @@
 }:
 let
   cfg = config.modules.filesystem.btrfs;
+  mount = subvolume: {
+    fsType = "btrfs";
+    label = "nixos";
+    options = [
+      "noatime"
+      "compress=zstd"
+      "subvol=${subvolume}"
+    ];
+  };
 in
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
@@ -31,51 +40,11 @@ in
   config = lib.mkMerge [
     {
       fileSystems = {
-        "/" = {
-          fsType = "btrfs";
-          label = "nixos";
-          options = [
-            "noatime"
-            "compress=zstd"
-            "subvol=root"
-          ];
-        };
-        "/games" = {
-          fsType = "btrfs";
-          label = "nixos";
-          options = [
-            "noatime"
-            "compress=zstd"
-            "subvol=games"
-          ];
-        };
-        "/home" = {
-          fsType = "btrfs";
-          label = "nixos";
-          options = [
-            "noatime"
-            "compress=zstd"
-            "subvol=home"
-          ];
-        };
-        "/nix" = {
-          fsType = "btrfs";
-          label = "nixos";
-          options = [
-            "noatime"
-            "compress=zstd"
-            "subvol=nix"
-          ];
-        };
-        "/var/log" = {
-          fsType = "btrfs";
-          label = "nixos";
-          options = [
-            "noatime"
-            "compress=zstd"
-            "subvol=log"
-          ];
-        };
+        "/" = mount "root";
+        "/games" = mount "games";
+        "/home" = mount "home";
+        "/nix" = mount "nix";
+        "/var/log" = mount "log";
         "/boot" = {
           fsType = "vfat";
           label = "BOOT";
@@ -150,21 +119,15 @@ in
           "/var/lib/bluetooth"
           "/var/lib/nixos"
           "/var/lib/systemd"
+          "/var/lib/userborn"
         ];
         files = [
           "/etc/samba/credentials"
           "/etc/machine-id"
         ];
       };
-      fileSystems."/persistent" = {
-        fsType = "btrfs";
-        label = "nixos";
+      fileSystems."/persistent" = mount "persistent" // {
         neededForBoot = true;
-        options = [
-          "noatime"
-          "compress=zstd"
-          "subvol=persistent"
-        ];
       };
       services.userborn = {
         enable = true;
@@ -172,19 +135,9 @@ in
       };
     })
 
-    (lib.mkIf (cfg.swap.type == "file") {
-      fileSystems."/swap" = {
-        fsType = "btrfs";
-        label = "nixos";
-        options = [
-          "noatime"
-          "subvol=swap"
-        ];
-      };
-    })
-
     (lib.mkIf (cfg.swap.type != "none") {
       boot.zswap.enable = true;
+      fileSystems = lib.optionalAttrs (cfg.swap.type == "file") { "/swap" = mount "swap"; };
       swapDevices = [
         (
           {
