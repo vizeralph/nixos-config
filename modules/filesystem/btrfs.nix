@@ -45,6 +45,7 @@ in
         "/home" = mount "home";
         "/nix" = mount "nix";
         "/var/log" = mount "log";
+
         "/boot" = {
           fsType = "vfat";
           label = "BOOT";
