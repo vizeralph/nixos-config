@@ -5,16 +5,17 @@
     pkgs.keepassxc
     pkgs.proton-vpn
   ];
-  services.clamav = {
-    daemon = {
-      enable = true;
-      settings = {
-        MaxScanSize = "2G";
-        MaxFileSize = "2G";
-        AlertExceedsMax = true;
-      };
-    };
-    fangfrisch.enable = true;
-    updater.enable = true;
-  };
+  # NOTE: To be determined
+  # services.clamav = {
+  #   daemon = {
+  #     enable = true;
+  #     settings = {
+  #       MaxScanSize = "2G";
+  #       MaxFileSize = "2G";
+  #       AlertExceedsMax = true;
+  #     };
+  #   };
+  #   fangfrisch.enable = true;
+  #   updater.enable = true;
+  # };
 }

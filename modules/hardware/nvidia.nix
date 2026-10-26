@@ -1,8 +1,6 @@
 {
   hardware.nvidia = {
-    # FIXME: patchelf regression
-    # https://github.com/NixOS/nixpkgs/issues/576435
-    # dynamicBoost.enable = true;
+    dynamicBoost.enable = true;
     moduleParams.nvidia.NVreg_EnableS0ixPowerManagement = 1;
     powerManagement.enable = true;
   };

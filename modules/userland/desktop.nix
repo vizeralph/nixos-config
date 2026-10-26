@@ -10,6 +10,7 @@
       pkgs.grim
       pkgs.jq
       pkgs.kitty
+      pkgs.matugen
       pkgs.qbittorrent
       pkgs.quickshell
       pkgs.slurp
