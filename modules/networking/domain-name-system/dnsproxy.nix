@@ -23,7 +23,6 @@ in
         "[2606:1a40:1::11]:53"
       ];
       fallback = [ "quic://p2.freedns.controld.com" ];
-      ratelimit-subnet-len-ipv6 = 64;
       cache = true;
     };
   };
