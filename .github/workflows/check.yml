@@ -29,7 +29,8 @@ jobs:
         run: nix flake check
 
       - name: Build NixOS systems
+        if: github.event_name == 'workflow_dispatch'
         run: |
           nix build --no-link \
-            .#nixosConfigurations.vize-strix-scar-g533qr.config.system.build.toplevel \
-            .#nixosConfigurations.vize-zephyrus-m16-gu604vi.config.system.build.toplevel
+          .#nixosConfigurations.vize-strix-scar-g533qr.config.system.build.toplevel \
+          .#nixosConfigurations.vize-zephyrus-m16-gu604vi.config.system.build.toplevel
