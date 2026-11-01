@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "0 0 * * *"
       timezone: "Asia/Manila"
+
   workflow_dispatch:
 
 permissions:

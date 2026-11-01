@@ -52,6 +52,7 @@ in
           options = [ "umask=0077" ];
         };
       };
+      services.btrfs.autoScrub.enable = true;
     }
 
     (lib.mkIf cfg.impermanence.enable {

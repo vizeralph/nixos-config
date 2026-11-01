@@ -1,15 +1,12 @@
 { inputs, ... }:
+
 {
   imports = [
     (inputs.self + "/modules")
     (inputs.self + "/modules/filesystem/ext4.nix")
   ];
 
-  modules = {
-    bootloader.type = "grub";
-    filesystem.ext4.swap.type = "file";
-    networking.domainNameSystem.type = "dnsproxy";
-  };
+  modules.filesystem.ext4.swap.type = "partition";
 
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "vize-vm";

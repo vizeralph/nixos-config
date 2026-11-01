@@ -1,4 +1,5 @@
 { lib, ... }:
+
 {
   i18n.defaultLocale = "en_PH.UTF-8";
   location = {

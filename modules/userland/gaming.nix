@@ -4,6 +4,7 @@
   pkgs,
   ...
 }:
+
 {
   boot.kernelModules = [ "ntsync" ];
   environment.systemPackages = [
@@ -26,6 +27,7 @@
   ];
   programs.steam.enable = true;
   services.sunshine = {
+    autoStart = false;
     capSysAdmin = true;
     enable = true;
     openFirewall = true;

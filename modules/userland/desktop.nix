@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   environment = {
     systemPackages = [
@@ -33,16 +34,12 @@
     "vista-fonts"
   ];
   programs = {
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-    };
+    hyprland.enable = true;
     localsend.enable = true;
     mango.enable = true;
   };
   services = {
     flatpak.enable = true;
-    pipewire.jack.enable = true;
     upower.enable = true;
   };
   systemd = {

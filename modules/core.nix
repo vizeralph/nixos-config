@@ -1,4 +1,5 @@
 { inputs, pkgs, ... }:
+
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.bluetooth.enable = true;
@@ -25,13 +26,10 @@
       };
     })
   ];
-  security = {
-    rtkit.enable = true;
-    sudo.extraConfig = ''
-      Defaults lecture=never
-      Defaults env_keep+="EDITOR VISUAL"
-    '';
-  };
+  security.sudo.extraConfig = ''
+    Defaults lecture=never
+    Defaults env_keep+="EDITOR VISUAL"
+  '';
   systemd.tmpfiles.rules = [ "z /sys/class/powercap/intel-rapl:0/energy_uj 0440 - rapl - -" ];
   users = {
     groups.rapl.members = [ "vize" ];

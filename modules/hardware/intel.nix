@@ -23,7 +23,6 @@ in
       hardware.graphics.extraPackages = [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver
-        pkgs.libvdpau-va-gl
         pkgs.vpl-gpu-rt
       ];
       services.xserver.videoDrivers = [ "modesetting" ];

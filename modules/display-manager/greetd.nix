@@ -20,7 +20,7 @@ in
     enable = true;
     settings.default_session.command =
       if cfg.type == "graphical" then
-        # TODO
+        # TODO:
         "${lib.getExe pkgs.cage} -s -- ${lib.getExe pkgs.quickshell} --path ${./greeter.qml}"
       else
         "${lib.getExe pkgs.tuigreet} --remember-session --remember --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions --session-wrapper '${pkgs.systemd}/bin/systemd-cat --identifier=wayland-session'";

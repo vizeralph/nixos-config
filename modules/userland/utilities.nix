@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   environment.systemPackages = [
     pkgs.bat
@@ -9,12 +10,9 @@
     pkgs.yazi
     pkgs.zoxide
   ];
-  programs = {
-    nano.enable = false;
-    zsh = {
-      enable = true;
-      enableGlobalCompInit = false;
-    };
+  programs.zsh = {
+    enable = true;
+    enableGlobalCompInit = false;
   };
   virtualisation.podman = {
     enable = true;

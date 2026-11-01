@@ -1,4 +1,5 @@
 { lib, pkgs, ... }:
+
 {
   environment = {
     systemPackages = [
@@ -25,4 +26,5 @@
       VISUAL = "nvim";
     };
   };
+  programs.nano.enable = false;
 }

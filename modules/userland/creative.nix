@@ -4,6 +4,7 @@
   pkgs,
   ...
 }:
+
 {
   environment.systemPackages = [
     pkgs.davinci-resolve
@@ -18,6 +19,5 @@
     package = pkgs.obs-studio.override {
       cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
     };
-    plugins = [ pkgs.obs-studio-plugins.wlrobs ];
   };
 }

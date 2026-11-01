@@ -1,4 +1,5 @@
 { config, pkgs, ... }:
+
 {
   environment.etc."alsa-card-profile/paths/analog-output-speaker.conf".source = pkgs.substitute {
     src = "${config.services.pipewire.package}/share/alsa-card-profile/mixer/paths/analog-output-speaker.conf";
