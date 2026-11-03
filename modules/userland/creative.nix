@@ -11,7 +11,8 @@
     pkgs.gimp
     pkgs.krita
     pkgs.libreoffice
-    pkgs.onlyoffice-desktopeditors
+
+    pkgs.stable.onlyoffice-desktopeditors
   ];
   nixpkgs.config.allowUnfreePackages = [ "davinci-resolve" ];
   programs.obs-studio = {
