@@ -40,6 +40,7 @@
   };
   services = {
     flatpak.enable = true;
+    playerctld.enable = true;
     upower.enable = true;
   };
   systemd = {
