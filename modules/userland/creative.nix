@@ -14,7 +14,10 @@
     pkgs.libreoffice
     pkgs.onlyoffice-desktopeditors
   ];
-  nixpkgs.config.allowUnfreePackages = [ "davinci-resolve" ];
+  nixpkgs.config.allowUnfreePackages = [
+    "blender"
+    "davinci-resolve"
+  ];
   programs.obs-studio = {
     enable = true;
     package = pkgs.obs-studio.override {

@@ -55,6 +55,7 @@
       # [Unit] #
       ##########
       after = [ "asusd.service" ];
+      wants = [ "asusd.service" ];
 
       #############
       # [Service] #
@@ -64,9 +65,11 @@
         Restart = "always";
       };
       script = ''
-        busctl --system get-property \
-        xyz.ljones.Asusd /xyz/ljones \
-        xyz.ljones.Platform PlatformProfile > /dev/null
+        busctl get-property \
+          xyz.ljones.Asusd /xyz/ljones \
+          xyz.ljones.Platform PlatformProfile > /dev/null
+
+        IFS= read -r last_profile < /sys/firmware/acpi/platform_profile
 
         match="type='signal',"
         match+="sender='xyz.ljones.Asusd',"
@@ -75,9 +78,14 @@
         match+="member='PropertiesChanged',"
         match+="arg0='xyz.ljones.Platform'"
 
-        busctl --system --json=short --match="$match" monitor |
+        busctl --json=short --match="$match" monitor |
         while IFS= read -r _; do
-          systemctl start intel-power-limit.service
+          IFS= read -r current_profile < /sys/firmware/acpi/platform_profile
+
+          if [ "$current_profile" != "$last_profile" ]; then
+            systemctl start intel-power-limit.service
+            last_profile=$current_profile
+          fi
         done
       '';
 
@@ -93,30 +101,41 @@
       # [Unit] #
       ##########
       after = [ "asusd.service" ];
+      wants = [ "asusd.service" ];
 
       #############
       # [Service] #
       #############
       serviceConfig.Type = "oneshot";
       script = ''
-        zone=/sys/class/powercap/intel-rapl/intel-rapl:0
+        zones=(
+          /sys/class/powercap/intel-rapl:0
+          /sys/class/powercap/intel-rapl-mmio:0
+        )
 
-        test "$(cat "$zone/enabled")" = 1
-        test "$(cat "$zone/name")" = package-0
-        test "$(cat "$zone/constraint_0_name")" = long_term
-        test "$(cat "$zone/constraint_0_power_limit_uw")" != 0
-        test "$(cat "$zone/constraint_1_name")" = short_term
-        test "$(cat "$zone/constraint_1_power_limit_uw")" != 0
+        for zone in "''${zones[@]}"; do
+          test "$(cat "$zone/enabled")" = 1
+          test "$(cat "$zone/name")" = package-0
+          test "$(cat "$zone/constraint_0_name")" = long_term
+          test "$(cat "$zone/constraint_0_power_limit_uw")" -gt 0
+          test "$(cat "$zone/constraint_1_name")" = short_term
+          test "$(cat "$zone/constraint_1_power_limit_uw")" -gt 0
+        done
 
         case "$(cat /sys/firmware/acpi/platform_profile)" in
-          performance)  pl1=45000000; pl2=45000000 ;;
-          balanced)     pl1=35000000; pl2=45000000 ;;
-          quiet)        pl1=25000000; pl2=45000000 ;;
+          performance)  pl1=45; pl2=45 ;;
+          balanced)     pl1=35; pl2=45 ;;
+          quiet)        pl1=25; pl2=45 ;;
           *)            echo "Unsupported power profile" >&2; exit 1 ;;
         esac
 
-        printf '%s\n' "$pl1" > "$zone/constraint_0_power_limit_uw"
-        printf '%s\n' "$pl2" > "$zone/constraint_1_power_limit_uw"
+        pl1=$((pl1 * 1000000))
+        pl2=$((pl2 * 1000000))
+
+        for zone in "''${zones[@]}"; do
+          printf '%s\n' "$pl1" > "$zone/constraint_0_power_limit_uw"
+          printf '%s\n' "$pl2" > "$zone/constraint_1_power_limit_uw"
+        done
       '';
 
       #############

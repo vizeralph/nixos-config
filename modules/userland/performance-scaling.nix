@@ -24,7 +24,7 @@ in
     };
     systemd.services.asusd.serviceConfig.ExecStartPost = lib.mkIf (cfg.type == "both") (
       let
-        busctl = "${pkgs.systemd}/bin/busctl --system set-property xyz.ljones.Asusd /xyz/ljones xyz.ljones.Platform";
+        busctl = "${pkgs.systemd}/bin/busctl set-property xyz.ljones.Asusd /xyz/ljones xyz.ljones.Platform";
       in
       map (property: "${busctl} ${property} b false") [
         "ChangePlatformProfileOnAc"
