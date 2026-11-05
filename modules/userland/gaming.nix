@@ -10,7 +10,7 @@
   environment.systemPackages = [
     pkgs.gamescope
     pkgs.heroic
-    pkgs.moonlight
+    pkgs.moonlight-qt
     pkgs.osu-lazer-bin
     pkgs.prismlauncher
     pkgs.protonplus
