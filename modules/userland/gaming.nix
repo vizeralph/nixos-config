@@ -7,17 +7,14 @@
 
 {
   boot.kernelModules = [ "ntsync" ];
-  environment = {
-    systemPackages = [
-      pkgs.gamescope
-      pkgs.heroic
-      pkgs.moonlight
-      pkgs.osu-lazer-bin
-      pkgs.prismlauncher
-      pkgs.protonplus
-    ];
-    sessionVariables.PROTON_ENABLE_WAYLAND = "1";
-  };
+  environment.systemPackages = [
+    pkgs.gamescope
+    pkgs.heroic
+    pkgs.moonlight
+    pkgs.osu-lazer-bin
+    pkgs.prismlauncher
+    pkgs.protonplus
+  ];
   nixpkgs.config.allowUnfreePackages = [
     "cccl"
     "cuda_crt"

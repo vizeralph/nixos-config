@@ -7,6 +7,7 @@
 
 {
   environment.systemPackages = [
+    (pkgs.blender.override { cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers; })
     pkgs.davinci-resolve
     pkgs.gimp
     pkgs.krita
