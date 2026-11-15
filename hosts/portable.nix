@@ -4,23 +4,20 @@
   imports = [
     (inputs.self + "/modules")
     (inputs.self + "/modules/filesystem/cifs.nix")
-    (inputs.self + "/modules/filesystem/ext4.nix")
-    (inputs.self + "/modules/hardware/amd.nix")
-    (inputs.self + "/modules/hardware/intel.nix")
-    (inputs.self + "/modules/hardware/nvidia.nix")
   ];
 
   modules = {
     bootloader.type = "grub";
     hardware = {
-      amd = {
-        cpu.enable = true;
-        gpu.enable = true;
-      };
-      intel = {
-        cpu.enable = true;
-        gpu.enable = true;
-      };
+      cpu = [
+        "amd"
+        "intel"
+      ];
+      gpu = [
+        "amd"
+        "intel"
+        "nvidia"
+      ];
     };
     networking.domainNameSystem.type = "dnsproxy";
     userland.performanceScaling.type = "both";

@@ -4,22 +4,15 @@
   pkgs,
   ...
 }:
-let
-  cfg = config.modules.hardware.intel;
-in
-{
-  options.modules.hardware.intel = {
-    cpu.enable = lib.mkEnableOption "Intel CPU support";
-    gpu.enable = lib.mkEnableOption "Intel GPU support";
-  };
 
+{
   config = lib.mkMerge [
-    (lib.mkIf cfg.cpu.enable {
+    (lib.mkIf (lib.elem "intel" config.modules.hardware.cpu) {
       boot.kernelModules = [ "kvm-intel" ];
       hardware.cpu.intel.updateMicrocode = true;
     })
 
-    (lib.mkIf cfg.gpu.enable {
+    (lib.mkIf (lib.elem "intel" config.modules.hardware.gpu) {
       hardware.graphics.extraPackages = [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver

@@ -21,6 +21,8 @@ let
   };
 in
 {
-  fileSystems."/mnt/family" = mount "family";
-  fileSystems."/mnt/personal" = mount "personal";
+  fileSystems = {
+    "/mnt/family" = mount "family";
+    "/mnt/personal" = mount "personal";
+  };
 }

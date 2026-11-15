@@ -5,14 +5,15 @@
   ...
 }:
 let
+  inherit (config.modules.hardware) gpu;
   btop = pkgs.btop.override {
-    cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
-    rocmSupport = lib.elem "amdgpu" config.services.xserver.videoDrivers;
+    cudaSupport = lib.elem "nvidia" gpu;
+    rocmSupport = lib.elem "amd" gpu;
   };
 in
 {
   environment.systemPackages = [ btop ];
-  security.wrappers.btop = lib.mkIf (config.modules.hardware.intel.gpu.enable or false) {
+  security.wrappers.btop = lib.mkIf (lib.elem "intel" gpu) {
     permissions = "u=rx,g=rx,o=";
     owner = "root";
     group = "rapl";

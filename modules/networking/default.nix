@@ -20,37 +20,30 @@ in
     default = "dnscrypt-proxy";
   };
 
-  config = lib.mkMerge [
-    {
-      networking = {
-        networkmanager = {
-          enable = true;
-          wifi = {
-            backend = "iwd";
-            macAddress = "random";
-          };
-        };
-        nftables.enable = true;
-      };
-      services.firewalld = {
+  config = {
+    networking = {
+      nameservers = lib.mkIf backends.${cfg.type} [
+        "127.0.0.1"
+        "::1"
+      ];
+      networkmanager = {
         enable = true;
-        settings.DefaultZone = "public";
-        zones = {
-          nixos-fw-default.services = [ "dhcpv6-client" ];
-          public.services = [ "dhcpv6-client" ];
+        dns = lib.mkIf backends.${cfg.type} "none";
+        wifi = {
+          backend = "iwd";
+          macAddress = "random";
         };
       };
-      users.users.vize.extraGroups = [ "networkmanager" ];
-    }
-
-    (lib.mkIf backends.${cfg.type} {
-      networking = {
-        nameservers = [
-          "127.0.0.1"
-          "::1"
-        ];
-        networkmanager.dns = "none";
+      nftables.enable = true;
+    };
+    services.firewalld = {
+      enable = true;
+      settings.DefaultZone = "public";
+      zones = {
+        nixos-fw-default.services = [ "dhcpv6-client" ];
+        public.services = [ "dhcpv6-client" ];
       };
-    })
-  ];
+    };
+    users.users.vize.extraGroups = [ "networkmanager" ];
+  };
 }

@@ -14,7 +14,7 @@ let
   };
 in
 {
-  # FIXME: showtools and submenuentry {}
+  # FIXME: showtools and submenuentry {}.
   config.boot.loader.refind = lib.mkIf (cfg.type == "refind") {
     additionalFiles = {
       "refind-theme/fonts/source-code-pro-extralight-18.png" =

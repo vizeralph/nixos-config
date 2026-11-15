@@ -3,22 +3,19 @@
 {
   imports = [
     (inputs.self + "/modules")
-    (inputs.self + "/modules/filesystem/btrfs.nix")
     (inputs.self + "/modules/filesystem/cifs.nix")
-    (inputs.self + "/modules/hardware/amd.nix")
-    (inputs.self + "/modules/hardware/nvidia.nix")
     (inputs.self + "/modules/patches/speaker-headphone-routing.nix")
   ];
 
   modules = {
     bootloader.type = "grub";
-    filesystem.btrfs.swap = {
-      size = 16 * 1024;
-      type = "file";
-    };
-    hardware.amd = {
-      cpu.enable = true;
-      gpu.enable = true;
+    filesystem.type = "btrfs";
+    hardware = {
+      cpu = [ "amd" ];
+      gpu = [
+        "amd"
+        "nvidia"
+      ];
     };
     networking.domainNameSystem.type = "dnsproxy";
     userland.performanceScaling.type = "asusd";
@@ -46,5 +43,12 @@
   };
   networking.hostName = "vize-strix-scar-g533qr";
   nixpkgs.hostPlatform = "x86_64-linux";
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      size = 16 * 1024;
+    }
+  ];
   system.stateVersion = "26.05";
+  zramSwap.enable = true;
 }

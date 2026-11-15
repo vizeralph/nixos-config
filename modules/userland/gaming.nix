@@ -4,7 +4,9 @@
   pkgs,
   ...
 }:
-
+let
+  inherit (config.modules.hardware) gpu;
+in
 {
   boot.kernelModules = [ "ntsync" ];
   environment.systemPackages = [
@@ -31,9 +33,7 @@
     capSysAdmin = true;
     enable = true;
     openFirewall = true;
-    package = pkgs.sunshine.override {
-      cudaSupport = lib.elem "nvidia" config.services.xserver.videoDrivers;
-    };
+    package = pkgs.sunshine.override { cudaSupport = lib.elem "nvidia" gpu; };
   };
   users.users.vize.extraGroups = [ "uinput" ];
 }

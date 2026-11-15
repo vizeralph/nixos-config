@@ -20,5 +20,8 @@
       staticAltitude = 0;
     };
   };
+  # HACK: fixes gio deadlock.
+  # https://go.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg6330971.html
+  systemd.services.geoclue.serviceConfig.Environment = "GIO_USE_PROXY_RESOLVER=dummy";
   time.timeZone = lib.mkDefault "Asia/Manila";
 }

@@ -3,22 +3,19 @@
 {
   imports = [
     (inputs.self + "/modules")
-    (inputs.self + "/modules/filesystem/btrfs.nix")
     (inputs.self + "/modules/filesystem/cifs.nix")
-    (inputs.self + "/modules/hardware/intel.nix")
-    (inputs.self + "/modules/hardware/nvidia.nix")
     (inputs.self + "/modules/patches/speaker-headphone-routing.nix")
   ];
 
   modules = {
     bootloader.type = "grub";
-    filesystem.btrfs.swap = {
-      size = 32 * 1024;
-      type = "file";
-    };
-    hardware.intel = {
-      cpu.enable = true;
-      gpu.enable = true;
+    filesystem.type = "btrfs";
+    hardware = {
+      cpu = [ "intel" ];
+      gpu = [
+        "intel"
+        "nvidia"
+      ];
     };
     networking.domainNameSystem.type = "dnsproxy";
     userland.performanceScaling.type = "asusd";
@@ -50,24 +47,27 @@
     KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:00:02.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-name/intel-igpu"
     KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:01:00.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-name/nvidia-dgpu"
   '';
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      size = 32 * 1024;
+    }
+  ];
   system.stateVersion = "26.05";
   systemd.services = {
     asus-profile-watch = {
       enableStrictShellChecks = true;
 
-      ##########
-      # [Unit] #
-      ##########
-      after = [ "asusd.service" ];
-      wants = [ "asusd.service" ];
+      unitConfig = {
+        Wants = "asusd.service";
+        After = "asusd.service";
+      };
 
-      #############
-      # [Service] #
-      #############
       serviceConfig = {
         RestartSec = "5s";
         Restart = "always";
       };
+
       script = ''
         busctl get-property \
           xyz.ljones.Asusd /xyz/ljones \
@@ -101,16 +101,13 @@
     intel-power-limit = {
       enableStrictShellChecks = true;
 
-      ##########
-      # [Unit] #
-      ##########
-      after = [ "asusd.service" ];
-      wants = [ "asusd.service" ];
+      unitConfig = {
+        Wants = "asusd.service";
+        After = "asusd.service";
+      };
 
-      #############
-      # [Service] #
-      #############
       serviceConfig.Type = "oneshot";
+
       script = ''
         zones=(
           /sys/class/powercap/intel-rapl:0

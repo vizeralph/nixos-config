@@ -1,22 +1,17 @@
 { inputs, ... }:
 
 {
-  imports = [
-    (inputs.self + "/modules")
-    (inputs.self + "/modules/filesystem/btrfs.nix")
-    (inputs.self + "/modules/hardware/intel.nix")
-    (inputs.self + "/modules/hardware/nvidia.nix")
-  ];
+  imports = [ (inputs.self + "/modules") ];
 
   modules = {
     bootloader.type = "grub";
-    filesystem.btrfs.swap = {
-      size = 16 * 1024;
-      type = "file";
-    };
-    hardware.intel = {
-      cpu.enable = true;
-      gpu.enable = true;
+    filesystem.type = "btrfs";
+    hardware = {
+      cpu = [ "intel" ];
+      gpu = [
+        "intel"
+        "nvidia"
+      ];
     };
     networking.domainNameSystem.type = "dnsproxy";
   };
@@ -40,5 +35,11 @@
   };
   networking.hostName = "vize-helios-neo-phn16-72";
   nixpkgs.hostPlatform = "x86_64-linux";
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      size = 16 * 1024;
+    }
+  ];
   system.stateVersion = "26.05";
 }

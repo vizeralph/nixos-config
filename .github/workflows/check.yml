@@ -21,16 +21,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31
 
       - name: Check flake
-        run: nix flake check
+        run: nix flake check --no-update-lock-file
 
-      - name: Build NixOS systems
-        if: github.event_name == 'workflow_dispatch'
+      - if: github.event_name == 'workflow_dispatch'
+        name: Build NixOS systems
         run: |
-          nix build --no-link \
+          nix build --no-link --no-update-lock-file \
           .#nixosConfigurations.vize-strix-scar-g533qr.config.system.build.toplevel \
           .#nixosConfigurations.vize-zephyrus-m16-gu604vi.config.system.build.toplevel
