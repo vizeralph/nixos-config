@@ -1,11 +1,12 @@
 {
   imports = [
     ./bootloader
-    ./display-manager/greetd.nix
     ./filesystem
     ./hardware
     ./networking
     ./userland
+
+    ./display-manager/greetd.nix
 
     ./core.nix
     ./imaging.nix

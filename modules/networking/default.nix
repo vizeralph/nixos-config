@@ -27,8 +27,8 @@ in
         "::1"
       ];
       networkmanager = {
-        enable = true;
         dns = lib.mkIf backends.${cfg.type} "none";
+        enable = true;
         wifi = {
           backend = "iwd";
           macAddress = "random";

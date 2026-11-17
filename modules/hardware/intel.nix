@@ -4,15 +4,17 @@
   pkgs,
   ...
 }:
-
+let
+  cfg = config.modules.hardware;
+in
 {
   config = lib.mkMerge [
-    (lib.mkIf (lib.elem "intel" config.modules.hardware.cpu) {
+    (lib.mkIf (lib.elem "intel" cfg.cpu) {
       boot.kernelModules = [ "kvm-intel" ];
       hardware.cpu.intel.updateMicrocode = true;
     })
 
-    (lib.mkIf (lib.elem "intel" config.modules.hardware.gpu) {
+    (lib.mkIf (lib.elem "intel" cfg.gpu) {
       hardware.graphics.extraPackages = [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.filesystem.btrfs;
+  cfg = config.modules.filesystem;
   mount = subvolume: {
     fsType = "btrfs";
     label = "nixos";
@@ -21,7 +21,7 @@ in
 
   options.modules.filesystem.btrfs.impermanence.enable = lib.mkEnableOption "impermanence for Btrfs";
 
-  config = lib.mkIf (config.modules.filesystem.type == "btrfs") (
+  config = lib.mkIf (cfg.type == "btrfs") (
     lib.mkMerge [
       {
         fileSystems = {
@@ -37,7 +37,7 @@ in
         services.btrfs.autoScrub.enable = true;
       }
 
-      (lib.mkIf cfg.impermanence.enable {
+      (lib.mkIf cfg.btrfs.impermanence.enable {
         boot.initrd.systemd.services.prepare-ephemeral-root = {
           enableStrictShellChecks = true;
 

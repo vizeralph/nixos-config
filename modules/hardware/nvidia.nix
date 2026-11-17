@@ -1,7 +1,9 @@
 { config, lib, ... }:
-
+let
+  cfg = config.modules.hardware;
+in
 {
-  config = lib.mkIf (lib.elem "nvidia" config.modules.hardware.gpu) {
+  config = lib.mkIf (lib.elem "nvidia" cfg.gpu) {
     hardware.nvidia = {
       dynamicBoost.enable = true;
       moduleParams.nvidia.NVreg_EnableS0ixPowerManagement = 1;
