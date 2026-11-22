@@ -30,8 +30,8 @@ in
         dns = lib.mkIf backends.${cfg.type} "none";
         enable = true;
         settings.connection = {
-          "ipv4.dhcp-send-hostname" = 0;
-          "ipv6.dhcp-send-hostname" = 0;
+          "ipv4.dhcp-send-hostname" = false;
+          "ipv6.dhcp-send-hostname" = false;
         };
         wifi = {
           backend = "iwd";
