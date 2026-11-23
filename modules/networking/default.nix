@@ -30,8 +30,8 @@ in
         dns = lib.mkIf backends.${cfg.type} "none";
         enable = true;
         settings.connection = {
-          "ipv4.dhcp-send-hostname" = false;
-          "ipv6.dhcp-send-hostname" = false;
+          "ipv4.dhcp-send-hostname" = 0;
+          "ipv6.dhcp-send-hostname" = 0;
         };
         wifi = {
           backend = "iwd";
@@ -39,6 +39,7 @@ in
         };
       };
       nftables.enable = true;
+      wireless.iwd.settings.General.AddressRandomization = "network";
     };
     services.firewalld = {
       enable = true;
