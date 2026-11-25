@@ -3,14 +3,9 @@
 {
   imports = [ (inputs.self + "/modules") ];
 
-  modules = {
-    bootloader.type = "grub";
-    filesystem.type = "btrfs";
-    hardware = {
-      cpu = [ "intel" ];
-      gpu = [ "intel" ];
-    };
-    networking.domainNameSystem.type = "dnsproxy";
+  modules.hardware = {
+    cpu = [ "intel" ];
+    gpu = [ "intel" ];
   };
 
   boot.loader.efi.canTouchEfiVariables = true;

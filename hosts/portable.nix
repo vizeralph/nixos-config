@@ -4,6 +4,7 @@
   imports = [
     (inputs.self + "/modules")
     (inputs.self + "/modules/filesystem/cifs.nix")
+    (inputs.self + "/modules/patches/speaker-headphone-routing.nix")
   ];
 
   modules = {
