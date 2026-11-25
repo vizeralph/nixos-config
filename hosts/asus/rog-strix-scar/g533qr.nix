@@ -44,8 +44,8 @@
   networking.hostName = "vize-strix-scar-g533qr";
   nixpkgs.hostPlatform = "x86_64-linux";
   services.udev.extraRules = ''
-    KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:06:00.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-type/integrated"
     KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:01:00.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-type/discrete"
+    KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:06:00.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-type/integrated"
   '';
   swapDevices = [
     {
