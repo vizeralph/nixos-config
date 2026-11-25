@@ -44,8 +44,8 @@
   networking.hostName = "vize-zephyrus-m16-gu604vi";
   nixpkgs.hostPlatform = "x86_64-linux";
   services.udev.extraRules = ''
-    KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:00:02.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-name/intel-igpu"
-    KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:01:00.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-name/nvidia-dgpu"
+    KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:00:02.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-type/integrated"
+    KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:01:00.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-type/discrete"
   '';
   swapDevices = [
     {
