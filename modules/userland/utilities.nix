@@ -4,15 +4,25 @@
   environment.systemPackages = [
     pkgs.bat
     pkgs.eza
-    pkgs.git
     pkgs.starship
     pkgs.wget
     pkgs.yazi
     pkgs.zoxide
   ];
-  programs.zsh = {
-    enable = true;
-    enableGlobalCompInit = false;
+  programs = {
+    git = {
+      config = {
+        commit.gpgsign = true;
+        difftool.prompt = false;
+        gpg.format = "ssh";
+        merge.tool = "nvimdiff";
+      };
+      enable = true;
+    };
+    zsh = {
+      enable = true;
+      enableGlobalCompInit = false;
+    };
   };
   virtualisation.podman = {
     enable = true;
