@@ -7,7 +7,6 @@
     pkgs.git
     pkgs.wget
   ];
-  networking.hostName = "vize-wsl";
   nix.settings.experimental-features = [
     "flakes"
     "nix-command"

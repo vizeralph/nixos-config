@@ -27,21 +27,12 @@
   };
   hardware = {
     enableRedistributableFirmware = true;
-    nvidia = {
-      branch = "latest";
-      open = true;
-      powerManagement.finegrained = true;
-      prime = {
-        intelBusId = "PCI:0@0:2:0";
-        nvidiaBusId = "PCI:1@0:0:0";
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-      };
+    nvidia.prime = {
+      intelBusId = "PCI:0@0:2:0";
+      nvidiaBusId = "PCI:1@0:0:0";
+      offload.enable = true;
     };
   };
-  networking.hostName = "vize-zephyrus-m16-gu604vi";
   nixpkgs.hostPlatform = "x86_64-linux";
   services.udev.extraRules = ''
     KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:00:02.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-type/integrated"

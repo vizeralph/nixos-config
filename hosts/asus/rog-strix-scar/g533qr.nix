@@ -27,21 +27,12 @@
   };
   hardware = {
     enableRedistributableFirmware = true;
-    nvidia = {
-      branch = "latest";
-      open = true;
-      powerManagement.finegrained = true;
-      prime = {
-        amdgpuBusId = "PCI:6@0:0:0";
-        nvidiaBusId = "PCI:1@0:0:0";
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-      };
+    nvidia.prime = {
+      amdgpuBusId = "PCI:6@0:0:0";
+      nvidiaBusId = "PCI:1@0:0:0";
+      offload.enable = true;
     };
   };
-  networking.hostName = "vize-strix-scar-g533qr";
   nixpkgs.hostPlatform = "x86_64-linux";
   services.udev.extraRules = ''
     KERNEL=="card*", SUBSYSTEM=="drm", KERNELS=="0000:01:00.0", SUBSYSTEMS=="pci", SYMLINK+="dri/by-type/discrete"

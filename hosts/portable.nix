@@ -28,16 +28,13 @@
   hardware = {
     enableAllFirmware = true;
     enableAllHardware = true;
-    nvidia.open = false;
   };
-  networking.hostName = "vize-portable";
   nixpkgs = {
     config.allowUnfreePackages = [
       "b43-firmware"
       "broadcom-bt-firmware"
       "facetimehd-calibration"
       "facetimehd-firmware"
-      "nvidia-kernel-modules"
       "xone-dongle-firmware"
     ];
     hostPlatform = "x86_64-linux";

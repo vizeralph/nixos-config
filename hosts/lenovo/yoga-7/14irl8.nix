@@ -10,7 +10,6 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
   hardware.enableRedistributableFirmware = true;
-  networking.hostName = "vize-yoga-7-14irl8";
   nixpkgs.hostPlatform = "x86_64-linux";
   swapDevices = [
     {
